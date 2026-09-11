@@ -86,7 +86,21 @@ p { margin: 0 0 1em; }
 .btn small { display: block; font-size: .68rem; font-weight: 600; opacity: .85; line-height: 1; margin-bottom: .15rem; }
 .btn .lbl { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05; }
 .stores { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.6rem 0 .8rem; }
-.soon { font-size: .9rem; color: var(--muted); }
+.btn.store { padding: .55rem 1.1rem; font-size: .9rem; gap: .45rem; }
+.btn.store svg { width: 18px; height: 18px; }
+.btn.store small { font-size: .62rem; }
+
+/* "In arrivo" + bottone vero */
+.coming { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; margin: 1.6rem 0 .4rem; }
+.pill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .5rem 1rem .5rem .8rem; border-radius: 999px;
+  background: var(--glass); border: 1px solid var(--line);
+  color: var(--ink); font-weight: 600; font-size: .9rem;
+}
+.pill svg { width: 18px; height: 18px; fill: var(--bordeaux); }
+.pill svg + svg { margin-left: -.15rem; margin-right: .2rem; }
+@media (max-width: 860px) { .coming { align-items: center; } }
 
 /* Apertura */
 .hero { padding: 4.5rem 0 3rem; }
@@ -99,7 +113,24 @@ p { margin: 0 0 1em; }
 }
 
 .phone { width: min(300px, 78vw); position: relative; }
-.phone img { border-radius: 38px; box-shadow: var(--shadow); }
+.phone img { position: relative; z-index: 1; border-radius: 38px; box-shadow: var(--shadow); }
+
+/* Bagliori morbidi dietro al telefono, come il bordeaux e l'oro dell'app */
+.glow::before, .glow::after {
+  content: ""; position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(48px); opacity: .55; z-index: 0;
+}
+.glow::before { width: 78%; height: 42%; left: -22%; top: 8%; background: var(--bordeaux); opacity: .32; }
+.glow::after { width: 90%; height: 48%; right: -28%; bottom: 4%; background: var(--gold-accent); opacity: .7; }
+/* Variante con i colori scambiati, per alternare lungo la pagina */
+.glow-b::before { background: var(--gold-accent); opacity: .7; }
+.glow-b::after { background: var(--bordeaux); opacity: .3; }
+.hero { position: relative; overflow: hidden; }
+.hero .wrap { position: relative; z-index: 1; }
+.hero::before {
+  content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%;
+  left: -180px; top: -140px; background: var(--gold-pale); filter: blur(70px); opacity: .9; pointer-events: none; z-index: 0;
+}
 .phone.small { width: min(240px, 66vw); }
 
 /* Sezioni */
