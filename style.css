@@ -152,12 +152,18 @@ section { padding: 4rem 0; }
   border-radius: var(--radius); padding: 1.6rem;
   box-shadow: 0 10px 30px rgba(63, 13, 18, 0.07);
 }
+.step { position: relative; padding-top: 1.9rem; }
 .step::before {
   counter-increment: step; content: counter(step);
-  display: inline-grid; place-items: center;
-  width: 42px; height: 42px; border-radius: 50%;
-  font-family: var(--serif); font-weight: 700; font-size: 1.3rem;
-  color: #fff; background: var(--bordeaux); margin-bottom: 1rem;
+  position: absolute; top: 1.1rem; right: 1.2rem;
+  font-family: var(--serif); font-weight: 700; font-size: 1.1rem;
+  color: var(--gold-accent);
+}
+.step-icon {
+  width: 56px; height: 56px; padding: 13px; border-radius: 18px; margin-bottom: 1rem;
+  background: var(--bordeaux); color: #fff;
+  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  box-shadow: 0 10px 22px rgba(162, 29, 51, 0.25);
 }
 
 .safe { background: var(--glass-strong); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -167,8 +173,17 @@ section { padding: 4rem 0; }
 .safe li svg { width: 34px; height: 34px; fill: none; stroke: var(--bordeaux); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .safe li strong { display: block; color: var(--ink); }
 
-.final { text-align: center; padding: 5rem 0; }
+.final { position: relative; overflow: hidden; text-align: center; padding: 7rem 0; }
+.final .wrap { position: relative; z-index: 1; }
 .final .stores { justify-content: center; }
+/* La K del logo, grande e sfumata, dietro la chiusura */
+.big-k {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%);
+  font-family: var(--serif); font-style: italic; font-weight: 700; font-size: clamp(14rem, 30vw, 21rem);
+  line-height: 1; pointer-events: none; user-select: none;
+  background: linear-gradient(180deg, rgba(162, 29, 51, .10), rgba(201, 162, 75, .06));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
 
 /* Piede */
 footer { border-top: 1px solid var(--line); padding: 2rem 0 2.6rem; font-size: .92rem; color: var(--muted); }
