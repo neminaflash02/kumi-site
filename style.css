@@ -122,28 +122,59 @@ p { margin: 0 0 1em; }
 }
 .glow::before { width: 78%; height: 42%; left: -22%; top: 8%; background: var(--bordeaux); opacity: .32; }
 .glow::after { width: 90%; height: 48%; right: -28%; bottom: 4%; background: var(--gold-accent); opacity: .7; }
-/* Variante con i colori scambiati, per alternare lungo la pagina */
-.glow-b::before { background: var(--gold-accent); opacity: .7; }
-.glow-b::after { background: var(--bordeaux); opacity: .3; }
 .hero { position: relative; overflow: hidden; }
 .hero .wrap { position: relative; z-index: 1; }
 .hero::before {
   content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%;
   left: -180px; top: -140px; background: var(--gold-pale); filter: blur(70px); opacity: .9; pointer-events: none; z-index: 0;
 }
-.phone.small { width: min(240px, 66vw); }
 
 /* Sezioni */
 section { padding: 4rem 0; }
 .section-head { max-width: 640px; margin-bottom: 2.5rem; }
 
-.feature { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; padding: 1.2rem 0; }
-.feature .phone { justify-self: center; }
-.feature:nth-child(even) .phone { order: -1; }
-@media (max-width: 860px) {
-  .feature { grid-template-columns: 1fr; gap: 1.6rem; text-align: center; }
-  .feature:nth-child(even) .phone { order: 0; }
+/* Striscia delle schermate: cinque telefoni in fila (su desktop tutti in vista,
+   su mobile scorre a scatti), con un bagliore unico dietro */
+.screens {
+  position: relative;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.4rem;
+  margin: 0 0 3.5rem;
 }
+.screens::before, .screens::after {
+  content: ""; position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(60px); z-index: 0;
+}
+.screens::before { width: 46%; height: 55%; left: -6%; top: 10%; background: var(--gold-accent); opacity: .6; }
+.screens::after { width: 46%; height: 55%; right: -6%; top: 25%; background: var(--bordeaux); opacity: .22; }
+.screen { position: relative; z-index: 1; margin: 0; text-align: center; }
+.phone.strip { width: 100%; }
+.phone.strip img { border-radius: 26px; }
+.screen figcaption { margin-top: 1rem; font-size: .95rem; line-height: 1.4; }
+.screen figcaption strong {
+  display: block; font-family: var(--serif); font-size: 1.15rem; color: var(--bordeaux); margin-bottom: .2rem;
+}
+@media (max-width: 900px) {
+  .screens {
+    display: flex; gap: 1.2rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* sborda fino ai bordi dello schermo, cosi' il primo telefono non e' incollato al margine */
+    margin-left: -4vw; margin-right: -4vw; padding: .5rem 4vw 1rem;
+    scroll-padding-inline: 4vw;
+  }
+  .screens::-webkit-scrollbar { display: none; }
+  .screens::before, .screens::after { display: none; }
+  .screen { flex: 0 0 auto; width: min(220px, 62vw); scroll-snap-align: center; }
+  .screen:first-child { scroll-snap-align: start; }
+  .screen:last-child { scroll-snap-align: end; }
+}
+
+/* I quattro testi, in due colonne */
+.features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 3rem; }
+.feature h3 { padding-top: .9rem; border-top: 2px solid var(--gold-accent); }
+.feature p { margin-bottom: 0; }
+@media (max-width: 700px) { .features { grid-template-columns: 1fr; } }
 
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; counter-reset: step; }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
