@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email confermata — Kumi</title>
+  <meta name="description" content="La tua email è confermata: torna nell'app Kumi e accedi.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f1f0cc">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=6">
+  <style>
+    /* Pagina di atterraggio dopo il link di conferma: una sola scheda al centro. */
+    .confirm { min-height: calc(100vh - 140px); display: grid; place-items: center; padding: 3rem 0; }
+    .confirm .card { text-align: center; max-width: 520px; padding: 2.4rem 1.8rem; }
+    .confirm .mark { width: 72px; height: 72px; margin: 0 auto 1.2rem; border-radius: 50%;
+      display: grid; place-items: center; background: var(--bordeaux); color: #fff; }
+    .confirm .mark svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .confirm h1 { font-size: clamp(1.9rem, 5vw, 2.5rem); }
+    .confirm p { color: var(--ink); }
+    .confirm .btn { margin-top: .6rem; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Kumi"><img src="assets/icon-192.png" alt="" width="38" height="38">Kumi</a>
+  </div>
+</header>
+<main class="confirm">
+  <div class="wrap">
+    <div class="card" id="ok">
+      <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h1>Email confermata.</h1>
+      <p class="lead">Il tuo account Kumi è pronto.</p>
+      <p>Torna nell'app e premi <strong>Accedi</strong> con la tua email e la tua password. Puoi chiudere questa pagina.</p>
+    </div>
+    <div class="card" id="ko" hidden>
+      <h1>Link scaduto o già usato.</h1>
+      <p class="lead">Niente di grave.</p>
+      <p>Se hai già confermato, apri l'app e premi <strong>Accedi</strong>. Altrimenti riprova la registrazione dall'app: ti mandiamo un link nuovo.</p>
+      <p>Se non riesci, scrivici: <a href="mailto:support@kumiapp.space">support@kumiapp.space</a></p>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kumi · Napoli</span>
+    <nav><a href="./">Home</a><a href="privacy.html">Privacy</a></nav>
+  </div>
+</footer>
+<script>
+  // Quando il link è scaduto o già usato, Supabase rimanda qui con
+  // "#error=...&error_code=otp_expired" nell'indirizzo: mostriamo l'altra scheda.
+  var h = location.hash + location.search;
+  if (/error/.test(h)) {
+    document.getElementById('ok').hidden = true;
+    document.getElementById('ko').hidden = false;
+  }
+</script>
+</body>
+</html>
