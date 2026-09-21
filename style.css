@@ -72,7 +72,7 @@ p { margin: 0 0 1em; }
 .top nav a.cta { color: #fff; white-space: nowrap; padding: .6rem 1.15rem; font-size: .92rem; }
 .top nav a.cta.ghost { color: var(--bordeaux); }
 @media (max-width: 640px) {
-  .top nav a:not(.cta) { display: none; }
+  .top nav a:not(.cta):not(.lang) { display: none; }
   .brand { font-size: 1.45rem; }
   .brand img { width: 32px; height: 32px; }
   .top nav a.cta { padding: .5rem .95rem; font-size: .85rem; }
@@ -237,3 +237,21 @@ footer nav { display: flex; gap: 1.4rem; }
 .doc .table-wrap { overflow-x: auto; }
 .doc blockquote { margin: 1rem 0; padding: .8rem 1.2rem; border-left: 4px solid var(--gold-accent); background: var(--glass); border-radius: 0 12px 12px 0; }
 .back { display: inline-block; margin-bottom: 1.4rem; font-weight: 600; }
+
+/* Interruttore lingua in alto (IT/EN): piccolo, tondo, accanto al tasto. */
+.top nav a.lang {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  border: 1.5px solid var(--bordeaux); color: var(--bordeaux);
+  font-size: .78rem; font-weight: 800; letter-spacing: .04em;
+}
+.top nav a.lang:hover { background: var(--bordeaux); color: #fff; }
+
+/* Interruttore lingua in alto (IT/EN): piccolo, tondo, accanto al tasto. */
+.top nav a.lang {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  border: 1.5px solid var(--bordeaux); color: var(--bordeaux);
+  font-size: .78rem; font-weight: 800; letter-spacing: .04em;
+}
+.top nav a.lang:hover { background: var(--bordeaux); color: #fff; }

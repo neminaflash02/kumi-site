@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
   <style>
     /* Pagina di atterraggio dopo il link di conferma: una sola scheda al centro. */
     .confirm { min-height: calc(100vh - 140px); display: grid; place-items: center; padding: 3rem 0; }
@@ -33,17 +33,29 @@
 </header>
 <main class="confirm">
   <div class="wrap">
-    <div class="card" id="ok">
+    <div class="card" id="ok" data-lang="it">
       <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
       <h1>Email confermata.</h1>
       <p class="lead">Il tuo account Kumi è pronto.</p>
       <p>Torna nell'app e premi <strong>Accedi</strong> con la tua email e la tua password. Puoi chiudere questa pagina.</p>
     </div>
-    <div class="card" id="ko" hidden>
+    <div class="card" id="ok-en" data-lang="en" hidden>
+      <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h1>Email confirmed.</h1>
+      <p class="lead">Your Kumi account is ready.</p>
+      <p>Go back to the app and tap <strong>Sign in</strong> with your email and password. You can close this page.</p>
+    </div>
+    <div class="card" id="ko" data-lang="it" hidden>
       <h1>Link scaduto o già usato.</h1>
       <p class="lead">Niente di grave.</p>
       <p>Se hai già confermato, apri l'app e premi <strong>Accedi</strong>. Altrimenti riprova la registrazione dall'app: ti mandiamo un link nuovo.</p>
       <p>Se non riesci, scrivici: <a href="mailto:support@kumiapp.space">support@kumiapp.space</a></p>
+    </div>
+    <div class="card" id="ko-en" data-lang="en" hidden>
+      <h1>Link expired or already used.</h1>
+      <p class="lead">Nothing serious.</p>
+      <p>If you've already confirmed, open the app and tap <strong>Sign in</strong>. Otherwise try signing up again from the app: we'll send you a new link.</p>
+      <p>If it doesn't work, write to us: <a href="mailto:support@kumiapp.space">support@kumiapp.space</a></p>
     </div>
   </div>
 </main>
@@ -56,11 +68,17 @@
 <script>
   // Quando il link è scaduto o già usato, Supabase rimanda qui con
   // "#error=...&error_code=otp_expired" nell'indirizzo: mostriamo l'altra scheda.
-  var h = location.hash + location.search;
-  if (/error/.test(h)) {
-    document.getElementById('ok').hidden = true;
-    document.getElementById('ko').hidden = false;
-  }
+  // La lingua è quella del browser (o quella scelta sul sito): italiano o inglese.
+  var lang = 'it';
+  try {
+    var scelta = localStorage.getItem('kumi-lang');
+    var l = (scelta || navigator.language || '').toLowerCase();
+    if (l && l.indexOf('it') !== 0) lang = 'en';
+  } catch (e) {}
+  var errore = /error/.test(location.hash + location.search);
+  var id = (errore ? 'ko' : 'ok') + (lang === 'en' ? '-en' : '');
+  document.querySelectorAll('.card').forEach(function (c) { c.hidden = true; });
+  document.getElementById(id).hidden = false;
 </script>
 </body>
 </html>
