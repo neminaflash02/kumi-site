@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=11">
+  <link rel="stylesheet" href="../style.css?v=12">
 </head>
 <body>
 
@@ -107,7 +107,7 @@
 
   <section id="chi" class="mascot">
     <div class="wrap">
-      <img class="cat" src="../assets/kumi_mascotte.webp" alt="Kumi's kitten, with her burgundy collar and heart pendant" width="539" height="964" loading="lazy">
+      <div class="cat-stage" data-assets="../assets/cat/" aria-hidden="true"><img class="cat" src="../assets/kumi_mascotte.webp" alt="" width="539" height="964" loading="lazy"></div>
       <div>
         <span class="eyebrow">One thing, clearly</span>
         <h2>It's not a dating app.</h2>
@@ -171,5 +171,6 @@
     });
   });
 </script>
+<script src="../cat.js" defer></script>
 </body>
 </html>
