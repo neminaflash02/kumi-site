@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
   <script>
     // Chi arriva con il telefono in un'altra lingua va alla versione inglese,
     // a meno che non abbia scelto a mano (IT/EN in alto: la scelta resta).
@@ -118,7 +118,7 @@
 
   <section id="chi" class="mascot">
     <div class="wrap">
-      <img class="cat" src="assets/kumi_mascotte.webp" alt="La gattina di Kumi, con il collarino bordeaux e il ciondolo a cuore" width="539" height="964" loading="lazy">
+      <div class="cat-stage" aria-hidden="true"></div>
       <div>
         <span class="eyebrow">Una cosa chiara</span>
         <h2>Non è un'app di incontri.</h2>
@@ -182,5 +182,6 @@
     });
   });
 </script>
+<script src="cat.js" defer></script>
 </body>
 </html>
