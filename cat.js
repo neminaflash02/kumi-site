@@ -1,8 +1,10 @@
 /* La gattina di Kumi, animata a strati: è l'illustrazione originale
    ritagliata in pezzi (site/assets/cat/*.webp, generati da
    tools/cat_layers.py) mossi con trasformazioni CSS. Respira, sbatte le
-   palpebre, muove la punta della coda e le orecchie, segue il cursore (o lo
-   scorrimento) con la testa e ogni tanto si lecca la zampa. */
+   palpebre, muove la punta della coda e le orecchie e segue appena il cursore
+   (o lo scorrimento) con la testa. Solo movimenti piccoli: staccare pezzi
+   grandi (zampa che sale, testa che scende) mostra le cuciture del ritaglio.
+   Per leccarsi la zampa o camminare servono pose disegnate. */
 (function () {
   'use strict';
 
@@ -39,37 +41,26 @@
     return d;
   }
 
-  var tail = layer('tail', P.tail), body = layer('body', P.body), collar = layer('collar');
+  var tail = layer('tail', P.tail), body = layer('body', P.body);
   var headWrap = document.createElement('div'); headWrap.className = 'kc-head-wrap';
   headWrap.style.transformOrigin = origin(P.neck);
   var head = layer('head'), earL = layer('ear_l', P.earL), earR = layer('ear_r', P.earR);
   var lidL = lid([160, 268, 280, 372]), lidR = lid([330, 190, 432, 302]);
-  var tongue = document.createElement('div'); tongue.className = 'kc-tongue';
-  tongue.style.left = pct(346, W); tongue.style.top = pct(354, H);
-  tongue.style.width = pct(18, W); tongue.style.height = pct(20, H);
   headWrap.appendChild(head); headWrap.appendChild(earL); headWrap.appendChild(earR);
-  headWrap.appendChild(lidL); headWrap.appendChild(lidR); headWrap.appendChild(tongue);
-  var upper = layer('upper', P.shoulder), lower = layer('lower', P.elbow);
-  var arm = document.createElement('div'); arm.className = 'kc-arm'; arm.style.transformOrigin = origin(P.shoulder);
-  arm.appendChild(upper); arm.appendChild(lower);
+  headWrap.appendChild(lidL); headWrap.appendChild(lidR);
 
   stage.innerHTML = '';
-  [tail, body, collar, headWrap, arm].forEach(function (n) { stage.appendChild(n); });
+  [tail, body, headWrap].forEach(function (n) { stage.appendChild(n); });
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var t0 = performance.now();
   var blink = 0, blinkNext = 2400 + Math.random() * 2600, blinkDouble = false;
   var earKick = 0, earNext = 3000 + Math.random() * 5000, earSide = 0;
-  var lick = -1, lickNext = 8000 + Math.random() * 6000;
   var look = { x: 0, y: 0 }, target = { x: 0, y: 0 };
   var glance = 0, lastScroll = window.scrollY;
   var awake = false;
 
   function ease(t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
-  /* La posa del "lick": regolabile dall'indirizzo per provarla
-     (#lick&u=-120&l=-70&s=1.1&hr=16&hx=14&hy=36&c=14). */
-  var Q = {}; location.hash.replace(/^#/, '').split('&').forEach(function (kv) { var p = kv.split('='); Q[p[0]] = parseFloat(p[1]); });
-  var POSE = { u: Q.u || -104, l: Q.l || -82, s: Q.s || 1, hr: Q.hr || 13, hx: Q.hx || 12, hy: Q.hy || 30, c: Q.c || 12 };
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
   window.addEventListener('pointermove', function (e) {
@@ -96,37 +87,16 @@
 
     /* respiro e coda */
     body.style.transform = 'scale(' + (1 + Math.sin(t * 1.8) * .004) + ',' + (1 + Math.sin(t * 1.8) * .012) + ')';
-    tail.style.transform = 'rotate(' + (Math.sin(t * 1.4) * 7) + 'deg)';
+    tail.style.transform = 'rotate(' + (Math.sin(t * 1.4) * 2.5) + 'deg)';
 
     /* sguardo: cursore + scorrimento, con inerzia */
     glance *= .94;
     look.x += (target.x - look.x) * .06;
     look.y += (target.y + glance * .7 - look.y) * .06;
-    var headRot = look.x * 2.5 + Math.sin(t * .45) * .8;
-    var headX = look.x * 5, headY = look.y * 4, collarY = 0;
+    var headRot = look.x * 1.6 + Math.sin(t * .45) * .5;
+    var headX = look.x * 4, headY = look.y * 3;
 
-    /* si lecca la zampa: la zampa sale al muso e la testa scende a incontrarla */
-    var upRot = 0, lowRot = 0, lowScale = 1, tng = 0;
-    if (location.hash.indexOf('#lick') === 0) lick = now - 1500;
-    if (lick < 0 && awake && now - t0 > lickNext) { lick = now; lickNext = now - t0 + 12000 + Math.random() * 7000; }
-    if (lick >= 0) {
-      var L = (now - lick) / 1000, D = 3.6;
-      if (L > D) lick = -1;
-      else {
-        var up = clamp(L / .7, 0, 1), down = clamp((L - (D - .7)) / .7, 0, 1);
-        var a = ease(up) * (1 - ease(down));
-        upRot = POSE.u * a; lowRot = POSE.l * a; lowScale = 1 + (POSE.s - 1) * a;
-        headRot += POSE.hr * a; headX += POSE.hx * a; headY += POSE.hy * a; collarY = POSE.c * a;
-        var lk = L - .8;
-        if (lk > 0 && lk < 2.0) { tng = Math.max(0, Math.sin(lk * Math.PI * 3)); headY += Math.sin(lk * Math.PI * 3) * 3; }
-      }
-    }
-    arm.style.transform = 'rotate(' + upRot + 'deg)';
-    lower.style.transform = 'rotate(' + lowRot + 'deg) scaleY(' + lowScale + ')';
-    tongue.style.opacity = tng * .95;
-    tongue.style.transform = 'translateY(' + (tng * 6) + 'px) scale(' + (.4 + tng * .6) + ')';
     headWrap.style.transform = 'translate(' + headX + 'px,' + headY + 'px) rotate(' + headRot + 'deg)';
-    collar.style.transform = 'translate(' + (headX * .5) + 'px,' + collarY + 'px)';
 
     /* battito di ciglia, a volte doppio */
     if (awake && now - t0 > blinkNext && blink === 0) blink = now;
