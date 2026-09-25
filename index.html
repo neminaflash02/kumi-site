@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
   <script>
     // Chi arriva con il telefono in un'altra lingua va alla versione inglese,
     // a meno che non abbia scelto a mano (IT/EN in alto: la scelta resta).
@@ -90,28 +90,56 @@
 
   <section id="come">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Come funziona</span>
-        <h2>Quattro schermate. Nessun giro di parole.</h2>
+      <div class="shots-head">
+        <div class="section-head">
+          <span class="eyebrow">Come funziona</span>
+          <h2>Tutta l'app, una schermata alla volta.</h2>
+        </div>
+        <div class="shots-nav">
+          <button type="button" data-dir="-1" aria-label="Schermata precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" data-dir="1" aria-label="Schermata successiva"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
       </div>
 
-      <div class="screens" aria-label="Le schermate di Kumi">
-        <figure class="screen">
-          <div class="phone strip"><img src="assets/01_persone.webp" alt="La schermata Persone: profili ordinati per affinità" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Persone</strong>Profili della tua città con una percentuale di affinità, calcolata su interessi e modo di essere. Metti like a chi ti incuriosisce.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="assets/06_conversazione.webp" alt="Una conversazione su Kumi per organizzare un pomeriggio insieme" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Chat</strong>Si apre quando il like è reciproco. Foto, vocali, GIF: quello che serve per decidere dove e quando.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="assets/04_eventi.webp" alt="La schermata Eventi: un aperitivo sul lungomare di Napoli" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Eventi</strong>Proponi un'uscita o partecipa a una in programma. Posti limitati, chat di gruppo, promemoria prima dell'inizio.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="assets/05_profilo.webp" alt="Il profilo di Sofia con la spunta verificata" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Profilo</strong>Foto, interessi, lingue e le tue sfumature. La spunta dice alle altre che sei davvero tu.</figcaption>
-        </figure>
+      <div class="shots">
+        <div class="screens" aria-label="Le schermate di Kumi" tabindex="0">
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/01_persone.webp" alt="La schermata Persone: il profilo di Aurora con il 92% di affinità" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Persone</strong>Profili della tua città con una percentuale di affinità, calcolata su interessi e modo di essere.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/02_dettaglio.webp" alt="Il profilo di Aurora aperto: verificata, 92% affine, bio e interessi" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Il profilo</strong>Tocca una card per leggere bio e interessi. La spunta dice che è verificata.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/03_like.webp" alt="La schermata Like: le ragazze che ti hanno messo like" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Like</strong>Chi ti ha messo like, con i suoi interessi. Ricambi e si apre la chat.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/04_chat.webp" alt="La schermata Chat con i match e le conversazioni" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Chat</strong>Le nuove amiche in alto, le conversazioni sotto, con i messaggi da leggere.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/05_conversazione.webp" alt="Una conversazione su Kumi per organizzare un pomeriggio insieme" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Conversazione</strong>Foto, vocali, GIF: quello che serve per decidere dove e quando.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/06_eventi.webp" alt="La schermata Eventi: un aperitivo al tramonto sul lungomare di Napoli" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Eventi</strong>Il prossimo evento con la mappa, e un tocco per entrare nella chat del gruppo.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/07_incitta.webp" alt="Altri eventi e la sezione In città con concerti e mostre" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>In città</strong>Le uscite proposte dalle altre e concerti, mostre, spettacoli: trovi con chi andarci.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/08_evento.webp" alt="Il dettaglio di un evento con la mappa del lungomare" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>L'evento</strong>Data, ora e luogo sulla mappa. Partecipi e sei dentro la chat del gruppo.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="assets/09_profilo.webp" alt="Il profilo di Sofia con la spunta verificata" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Il tuo profilo</strong>Foto, interessi, lingue e le tue sfumature. La spunta dice alle altre che sei davvero tu.</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -182,6 +210,7 @@
     });
   });
 </script>
+<script src="screens.js" defer></script>
 <script src="cat.js" defer></script>
 </body>
 </html>

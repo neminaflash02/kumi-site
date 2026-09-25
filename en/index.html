@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=12">
+  <link rel="stylesheet" href="../style.css?v=13">
 </head>
 <body>
 
@@ -79,28 +79,56 @@
 
   <section id="come">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">How it works</span>
-        <h2>Four screens. No small print.</h2>
+      <div class="shots-head">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>The whole app, one screen at a time.</h2>
+        </div>
+        <div class="shots-nav">
+          <button type="button" data-dir="-1" aria-label="Previous screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" data-dir="1" aria-label="Next screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
       </div>
 
-      <div class="screens" aria-label="Kumi's screens">
-        <figure class="screen">
-          <div class="phone strip"><img src="../assets/en/01_persone.webp" alt="The People screen: profiles sorted by affinity" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>People</strong>Profiles from your city with an affinity score, based on interests and personality. Like whoever you're curious about.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="../assets/en/06_conversazione.webp" alt="A Kumi conversation planning an afternoon together" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Chat</strong>Opens when the like is mutual. Photos, voice notes, GIFs: everything you need to decide where and when.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="../assets/en/04_eventi.webp" alt="The Events screen: drinks on the Naples seafront" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Events</strong>Suggest an outing or join one that's planned. Limited spots, group chat, a reminder before it starts.</figcaption>
-        </figure>
-        <figure class="screen">
-          <div class="phone strip"><img src="../assets/en/05_profilo.webp" alt="Sofia's profile with the verified badge" width="520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Profile</strong>Photos, interests, languages and your shades. The badge tells the others it's really you.</figcaption>
-        </figure>
+      <div class="shots">
+        <div class="screens" aria-label="Kumi's screens" tabindex="0">
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/01_persone.webp" alt="The People screen: Aurora's profile with 92% affinity" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>People</strong>Profiles from your city with an affinity score, based on interests and personality.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/02_dettaglio.webp" alt="Aurora's profile opened: verified, 92% in tune, bio and interests" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Her profile</strong>Tap a card to read her bio and interests. The badge says she's verified.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/03_like.webp" alt="The Likes screen: the girls who liked you" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Likes</strong>Who liked you, with her interests. Like her back and the chat opens.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/04_chat.webp" alt="The Chat screen with matches and conversations" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Chat</strong>New friends at the top, conversations below, with your unread messages.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/05_conversazione.webp" alt="A Kumi conversation planning an afternoon together" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Conversation</strong>Photos, voice notes, GIFs: everything you need to decide where and when.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/06_eventi.webp" alt="The Events screen: drinks at sunset on the Naples seafront" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Events</strong>The next event with its map, and one tap to join the group chat.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/07_incitta.webp" alt="More events and the In town section with concerts and exhibitions" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>In town</strong>Outings suggested by others, plus concerts, exhibitions and shows: find someone to go with.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/08_evento.webp" alt="An event's details with the seafront map" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>The event</strong>Date, time and place on the map. Join and you're in the group chat.</figcaption>
+          </figure>
+          <figure class="screen">
+            <div class="phone strip"><img src="../assets/en/09_profilo.webp" alt="Sofia's profile with the verified badge" width="520" height="1126" loading="lazy"></div>
+            <figcaption><strong>Your profile</strong>Photos, interests, languages and your shades. The badge tells the others it's really you.</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -171,6 +199,7 @@
     });
   });
 </script>
+<script src="../screens.js" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>
