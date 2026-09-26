@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["VTCX8L3W9M.space.kumiapp"],
+        "components": [
+          { "/": "/e/*", "comment": "Invito a un evento: /e/?id=<id>" },
+          { "/": "/en/e/*", "comment": "Lo stesso invito, pagina in inglese" }
+        ]
+      }
+    ]
+  }
+}
