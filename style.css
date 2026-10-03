@@ -19,10 +19,13 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--cream); }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 /* I bagliori sfumati (.glow, .screens::after) sporgono oltre il bordo destro:
    senza questo la pagina scorreva di lato di qualche pixel. */
 html, body { overflow-x: clip; }
+/* Niente effetto elastico di lato (su iPhone mostrava una striscia piena a sinistra
+   quando si trascinava la fila delle schermate oltre il suo inizio). */
+html, body { overscroll-behavior-x: none; }
 body {
   margin: 0;
   font-family: var(--sans);
@@ -168,7 +171,7 @@ section { padding: 4rem 0; }
 .screens {
   position: relative; z-index: 1;
   display: flex; gap: 1.8rem; margin: 0;
-  overflow-x: auto; overscroll-behavior-x: contain;
+  overflow-x: auto; overscroll-behavior-x: none;
   scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   /* sborda a destra fino al bordo della finestra */
