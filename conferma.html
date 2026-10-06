@@ -72,8 +72,17 @@
   var lang = 'it';
   try {
     var scelta = localStorage.getItem('kumi-lang');
-    var l = (scelta || navigator.language || '').toLowerCase();
-    if (l && l.indexOf('it') !== 0) lang = 'en';
+    if (scelta) {
+      if (scelta.toLowerCase().indexOf('it') !== 0) lang = 'en';
+    } else {
+      // Italiano se una qualsiasi delle lingue del browser lo è (non solo la prima).
+      var lingue = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+      var italiano = false;
+      for (var i = 0; i < lingue.length; i++) {
+        if (String(lingue[i]).toLowerCase().indexOf('it') === 0) italiano = true;
+      }
+      if (lingue[0] && !italiano) lang = 'en';
+    }
   } catch (e) {}
   var errore = /error/.test(location.hash + location.search);
   var id = (errore ? 'ko' : 'ok') + (lang === 'en' ? '-en' : '');
