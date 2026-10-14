@@ -1,0 +1,370 @@
+/* Kumi — home del sito (14 ott 2026). La pagina è un invito: un biglietto
+   di carta sopra il lungomare, poi gli altri pezzi della stessa cancelleria
+   (la cartolina della città, lo scontrino della settimana, la lettera, il
+   menu). Colori pieni del marchio, niente sfumature né ombre a riposo.
+   Le pagine legali usano ancora style.css. */
+:root {
+  --bordeaux: #a21d33;
+  --bordeaux-dark: #7d1527;
+  --ink: #1a1a1a;
+  --night: #1a1a1a;
+  --cream: #f1f0cc;
+  --paper: #f7f4dc;
+  --gold: #d8c07e;
+  --gold-pale: #e3d4a0;
+  --gold-accent: #c9a24b;
+  --soft: #4a4636;              /* testo secondario su carta: 8:1 sul crema */
+
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* cinque grandezze, non di più */
+  --t-display: clamp(2.6rem, 5.6vw, 5.4rem);
+  --t-heading: clamp(2rem, 3.6vw, 3.25rem);
+  --t-lead: clamp(1.2rem, 1.5vw, 1.45rem);
+  --t-body: 1.0625rem;
+  --t-small: .875rem;
+
+  --margin: clamp(16px, 3vw, 32px);
+  --section: clamp(96px, 12vw, 180px);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+body {
+  margin: 0; background: var(--cream); color: var(--ink);
+  font-family: var(--sans); font-size: var(--t-body); line-height: 1.55;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height: 1.02; letter-spacing: -.02em; text-wrap: balance; }
+::selection { background: var(--bordeaux); color: var(--paper); }
+:focus-visible { outline: 3px solid var(--gold-accent); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Bottoni: pieni, un colore, tondi. Uno solo per schermata. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 52px; padding: .8em 1.6em; border: 0; border-radius: 999px;
+  background: var(--bordeaux); color: var(--paper);
+  font: 700 var(--t-body)/1 var(--sans); text-decoration: none; cursor: pointer;
+  transition: transform .18s var(--ease-out), background-color .18s ease;
+}
+.btn:hover { background: var(--bordeaux-dark); }
+.btn:active { transform: scale(.97); }
+.btn.alt { background: var(--gold-pale); color: var(--ink); }
+.btn.alt:hover { background: var(--gold); }
+.link { font-weight: 700; color: var(--bordeaux); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.link:hover { color: var(--bordeaux-dark); }
+
+/* ——— Barra in alto: sopra la foto, niente vetro ——— */
+.bar {
+  position: absolute; inset: 0 0 auto; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 18px var(--margin); color: var(--paper);
+}
+.bar .brand { display: flex; align-items: center; gap: .55rem; font: italic 700 1.7rem/1 var(--serif); text-decoration: none; }
+.bar .brand img { width: 36px; height: 36px; border-radius: 9px; }
+.bar nav { display: flex; align-items: center; gap: 1.6rem; font-weight: 700; font-size: var(--t-small); }
+.bar nav a { text-decoration: none; }
+.bar nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bar .lang {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--paper); color: var(--bordeaux);
+}
+.bar .lang:hover { text-decoration: none; background: var(--gold-pale); }
+@media (max-width: 760px) { .bar nav a:not(.lang) { display: none; } }
+
+/* ——— 1. Apertura: il biglietto sopra il lungomare ———
+   La sezione è più alta dello schermo: mentre si scorre, il palco resta
+   fermo e il biglietto si rimpicciolisce un poco (site.js). */
+.hero { position: relative; height: 150svh; background: var(--night); }
+.hero__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; padding: 84px var(--margin) 40px; }
+.hero__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 55%; filter: brightness(.62); }
+
+.ticket {
+  --stub: 270px; --notch: 16px;
+  position: relative; z-index: 1;
+  width: min(1000px, 100%);
+  display: grid; grid-template-columns: 1fr var(--stub);
+  background: var(--paper); color: var(--ink);
+  /* le due tacche del biglietto, sopra e sotto la linea dei puntini */
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+}
+.ticket-hold { position: relative; z-index: 1; width: min(1000px, 100%); transform-origin: 50% 40%; }
+.ticket-hold .ticket { width: 100%; }
+.ticket__main { padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 28px); }
+.ticket h1 { font-size: var(--t-display); color: var(--bordeaux); max-width: 9.5em; }
+.ticket__facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 8px clamp(20px, 3vw, 40px); margin: 0; }
+.ticket__facts div { min-width: 0; }
+.ticket__facts dt { font-size: var(--t-small); color: var(--soft); }
+.ticket__facts dd { margin: 0; font-weight: 700; }
+.ticket__lead { font-size: var(--t-lead); line-height: 1.4; max-width: 34ch; margin: 0; }
+.ticket__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; font-size: var(--t-small); color: var(--soft); }
+.ticket__foot a.credit { color: var(--soft); }
+
+.ticket__stub {
+  border-left: 4px dotted var(--gold-accent);
+  padding: clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
+  background: var(--gold-pale);
+}
+.ticket__seats { font: 700 var(--t-display)/1 var(--serif); color: var(--bordeaux); letter-spacing: -.03em; }
+.ticket__seats small { display: block; margin-top: .4em; font: 700 var(--t-body)/1.3 var(--sans); color: var(--ink); letter-spacing: 0; }
+.ticket__stub p { margin: 0; font-size: var(--t-small); color: var(--soft); }
+.ticket__stub .btn { width: 100%; white-space: nowrap; padding-inline: 1em; }
+
+@media (max-width: 760px) {
+  .hero { height: 125svh; }
+  .hero__stage { padding: 76px 16px 24px; align-items: center; }
+  .ticket {
+    --stub: 0px; --cut: 124px;
+    grid-template-columns: 1fr;
+    -webkit-mask:
+      radial-gradient(circle var(--notch) at 0 calc(100% - var(--cut)), #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% calc(100% - var(--cut)), #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+            mask:
+      radial-gradient(circle var(--notch) at 0 calc(100% - var(--cut)), #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% calc(100% - var(--cut)), #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+  }
+  .ticket__main { padding: 22px 20px 20px; gap: 16px; }
+  .ticket h1 { font-size: 2.6rem; }
+  .ticket__facts { grid-template-columns: 1fr 1fr; }
+  .ticket__facts div:last-child { grid-column: 1 / -1; }
+  .ticket__lead { font-size: 1.0625rem; }
+  .ticket__stub {
+    height: var(--cut); border-left: 0; border-top: 4px dotted var(--gold-accent);
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 18px; padding: 18px 20px;
+  }
+  .ticket__seats { font-size: 2.6rem; }
+  .ticket__seats small { font-size: var(--t-small); }
+  .ticket__stub p { display: none; }
+}
+
+/* ——— 2. La tua città: la cartolina quadrata ——— */
+.city { background: var(--gold-pale); }
+.city__wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 88svh; }
+.city__plate { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.city__plate figure { margin: 0; }
+.city__plate .frame {
+  aspect-ratio: 1; background: var(--gold); overflow: hidden;
+  /* tacche a metà dei lati: un tagliando strappato dal biglietto */
+  -webkit-mask: radial-gradient(circle 14px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask: radial-gradient(circle 14px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+}
+.city__plate img { width: 100%; height: 100%; object-fit: cover; transition: opacity .35s ease, transform .6s var(--ease-out); }
+.city__plate img.swap { opacity: 0; transform: scale(1.04); }
+.city__plate figcaption { font-size: var(--t-small); color: var(--soft); }
+.city__plate figcaption a { color: var(--soft); }
+
+.city__text { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+.tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tabs button, .tabs select {
+  font: 700 var(--t-body)/1 var(--sans); color: var(--ink);
+  background: transparent; border: 0; border-radius: 999px; padding: .6em .9em; cursor: pointer;
+  transition: background-color .18s ease;
+}
+.tabs button:hover, .tabs select:hover { background: var(--gold); }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.tabs select { background: var(--paper); padding-right: 2.2em; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .7em center; background-size: 16px; }
+.tabs select.on { background-color: var(--ink); color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f7f4dc' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+.city h2 { font-size: var(--t-heading); color: var(--bordeaux); max-width: 14em; }
+.city__body p { max-width: 38ch; margin-top: 24px; font-size: var(--t-lead); line-height: 1.45; }
+.city__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 860px) {
+  .city__wrap { grid-template-columns: 1fr; min-height: 0; }
+  .city__plate { padding: 56px 16px 0; }
+  .city__text { padding: 24px 16px 72px; gap: 28px; }
+  .city__actions .btn { flex: 1 1 100%; }
+}
+
+/* ——— 3. La settimana: lo scontrino, col titolo che resta fermo ——— */
+.week { background: var(--bordeaux); color: var(--paper); padding: var(--section) var(--margin); }
+.week__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+.week__title { position: sticky; top: 14vh; }
+.week h2 { font-size: var(--t-heading); }
+.week__title p { margin-top: 24px; max-width: 32ch; font-size: var(--t-lead); line-height: 1.45; }
+.slip {
+  justify-self: end; width: min(480px, 100%);
+  background: var(--paper); color: var(--ink);
+  padding: 36px 32px 56px;
+  font-variant-numeric: tabular-nums;
+  /* bordo in basso a zig-zag, come uno scontrino strappato */
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 18px 100%; /* taste-skill-ignore: forma ritagliata */
+          mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 18px 100%; /* taste-skill-ignore: forma ritagliata */
+}
+.slip h3 { font: 700 var(--t-body)/1.3 var(--sans); margin: 28px 0 10px; }
+.slip h3:first-child { margin-top: 0; }
+.slip ol { list-style: none; margin: 0; padding: 0; }
+.slip li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; }
+.slip li span:first-child { flex: 0 1 auto; }
+.slip li i { flex: 1 1 24px; min-width: 24px; border-bottom: 4px dotted var(--gold-accent); transform: translateY(-4px); }
+.slip li b { flex: 0 0 auto; color: var(--bordeaux); }
+.slip .end {
+  margin: 28px -32px 0; padding: 0 32px; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--ink); color: var(--paper); font-weight: 700;
+}
+@media (max-width: 860px) {
+  .week__wrap { grid-template-columns: 1fr; }
+  .week__title { position: static; }
+  .slip { justify-self: stretch; padding: 28px 20px 52px; }
+  .slip .end { margin: 24px -20px 0; padding: 0 20px; }
+}
+
+/* ——— 4. Dentro l'app: la fila delle schermate ——— */
+.app { padding: var(--section) 0; }
+.app__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 0 var(--margin); max-width: 1244px; margin: 0 auto 40px; }
+.app h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.app__head p { margin: 16px 0 0; max-width: 40ch; font-size: var(--t-lead); line-height: 1.45; }
+.shots-nav { display: flex; gap: 10px; flex-shrink: 0; }
+.shots-nav button {
+  width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--ink); color: var(--paper);
+  display: grid; place-items: center; cursor: pointer; transition: transform .18s var(--ease-out), opacity .2s;
+}
+.shots-nav button:active { transform: scale(.94); }
+.shots-nav button:disabled { opacity: .25; cursor: default; }
+.shots-nav svg { width: 22px; height: 22px; }
+.screens {
+  display: flex; gap: clamp(16px, 2vw, 28px); overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; overscroll-behavior-x: contain;
+  padding: 0 var(--margin); scroll-padding-inline: var(--margin);
+  max-width: 1244px; margin: 0 auto;
+}
+.screens::-webkit-scrollbar { display: none; }
+.screen { flex: 0 0 auto; width: clamp(220px, 22vw, 270px); margin: 0; scroll-snap-align: start; }
+.screen img { width: 100%; }
+.screen figcaption { margin-top: 14px; font-size: var(--t-body); line-height: 1.45; }
+.screen figcaption strong { display: block; font-family: var(--serif); font-size: var(--t-lead); color: var(--bordeaux); }
+@media (max-width: 760px) { .shots-nav { display: none; } .screen { width: 66vw; } }
+
+/* ——— 5. Chi siamo: la lettera ——— */
+.letter { background: var(--gold); padding: var(--section) var(--margin); }
+.sheet {
+  width: min(640px, 100%); margin: 0 auto; background: var(--paper);
+  padding: clamp(28px, 6vw, 60px) clamp(24px, 6vw, 60px) clamp(48px, 7vw, 72px);
+  -webkit-mask: radial-gradient(circle 9px at 50% 100%, #0000 98%, #000) 0 100% / 22px 100% repeat-x; /* taste-skill-ignore: forma ritagliata */
+          mask: radial-gradient(circle 9px at 50% 100%, #0000 98%, #000) 0 100% / 22px 100% repeat-x; /* taste-skill-ignore: forma ritagliata */
+}
+.sheet .who { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.sheet .who img { width: 76px; height: 76px; border-radius: 50%; flex: 0 0 auto; }
+.sheet h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.sheet p { font-size: var(--t-body); line-height: 1.6; }
+.sheet mark { background: var(--gold-pale); color: inherit; padding: 0 .15em; }
+.sheet .sign { margin: 32px 0 0; font: italic 700 var(--t-lead)/1.2 var(--serif); color: var(--bordeaux); }
+.sheet .sign small { display: block; margin-top: 6px; font: var(--t-small)/1.4 var(--sans); color: var(--soft); }
+.tear {
+  width: min(640px, 100%); margin: 14px auto 0; background: var(--paper);
+  border-top: 5px dotted var(--gold-accent);
+  min-height: 80px; padding: 16px clamp(24px, 6vw, 60px);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+}
+.tear a.mail { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); }
+
+/* ——— 6. Cosa c'è dentro: il menu, su fondo nero ——— */
+.menu { background: var(--night); padding: var(--section) var(--margin); }
+.menu__sheet {
+  width: min(600px, 100%); margin: 0 auto; background: var(--paper);
+  padding: clamp(48px, 6vw, 72px) clamp(20px, 5vw, 52px);
+  -webkit-mask:
+    radial-gradient(circle 9px at 50% 0, #0000 98%, #000) 0 0 / 22px 51% repeat-x, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle 9px at 50% 100%, #0000 98%, #000) 0 100% / 22px 51% repeat-x; /* taste-skill-ignore: forma ritagliata */
+          mask:
+    radial-gradient(circle 9px at 50% 0, #0000 98%, #000) 0 0 / 22px 51% repeat-x, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle 9px at 50% 100%, #0000 98%, #000) 0 100% / 22px 51% repeat-x; /* taste-skill-ignore: forma ritagliata */
+}
+.menu h2 { font-size: var(--t-heading); color: var(--bordeaux); text-align: center; margin-bottom: 40px; }
+.menu h3 { font: 700 var(--t-lead)/1.3 var(--sans); margin: 44px 0 6px; scroll-margin-top: 24px; }
+.menu h3:first-of-type { margin-top: 0; }
+.menu dl { margin: 0; }
+.menu .row { padding: 9px 0; }
+.menu dt { display: flex; align-items: baseline; gap: 10px; font-weight: 700; }
+.menu dt i { flex: 1 1 24px; min-width: 24px; border-bottom: 4px dotted var(--gold-accent); transform: translateY(-4px); }
+.menu dt b { color: var(--bordeaux); font-size: var(--t-body); }
+.menu dd { margin: 2px 0 0; max-width: 40ch; color: var(--soft); font-size: var(--t-body); }
+
+/* ——— 7. La frase con lo spazio vuoto: avvisami ——— */
+.ask { padding: var(--section) var(--margin); }
+.ask__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: clamp(24px, 5vw, 80px); align-items: center; }
+.blank { margin: 0; font: 700 var(--t-heading)/1.2 var(--serif); color: var(--bordeaux); letter-spacing: -.02em; }
+.blank input, .blank button {
+  font: inherit; letter-spacing: inherit; height: 1.18em; vertical-align: bottom; border: 0; border-radius: .2em;
+  padding: 0 .25em;
+}
+.blank input { width: 6.2em; background: var(--gold-pale); color: var(--ink); }
+.blank input::placeholder { color: #6f6a52; }
+.blank button { background: var(--bordeaux); color: var(--paper); cursor: pointer; transition: background-color .18s ease, transform .18s var(--ease-out); }
+.blank button:hover { background: var(--bordeaux-dark); }
+.blank button:active { transform: scale(.97); }
+.ask__note { margin-top: 24px; max-width: 52ch; color: var(--soft); }
+.ask__note a { color: var(--bordeaux); font-weight: 700; }
+.ask .cat-stage { width: clamp(150px, 16vw, 220px); }
+@media (max-width: 760px) {
+  .ask__wrap { grid-template-columns: 1fr; }
+  .blank { font-size: 1.75rem; }
+  .blank input { width: 5.2em; }
+  .ask .cat-stage { width: 150px; justify-self: center; grid-row: 1; }
+}
+
+/* ——— Piede: le tessere ——— */
+.tiles { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; padding: 10px; }
+.tile { padding: 24px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; text-decoration: none; }
+.t-say { grid-column: span 4; background: var(--gold-pale); }
+.t-say p { font: 700 var(--t-lead)/1.25 var(--serif); color: var(--bordeaux); margin: 0; max-width: 18ch; }
+.t-say small { font-size: var(--t-small); color: var(--soft); }
+.t-nav { grid-column: span 3; background: var(--paper); }
+.t-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.t-nav a { font-weight: 700; text-decoration: none; }
+.t-nav a:hover { color: var(--bordeaux); text-decoration: underline; text-underline-offset: 4px; }
+.t-city { grid-column: span 2; background: var(--gold); }
+.t-city p { margin: 0; font-weight: 700; }
+.t-mail { grid-column: span 3; background: var(--paper); justify-content: flex-end; }
+.t-mail a { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); word-break: break-word; }
+.t-word { grid-column: span 8; min-height: 320px; background: var(--night); color: var(--paper); display: grid; place-items: center; }
+.t-word span { font: italic 700 clamp(5rem, 14vw, 12rem)/1 var(--serif); letter-spacing: -.03em; }
+.t-go { grid-column: span 4; min-height: 320px; background: var(--bordeaux); color: var(--paper); transition: background-color .2s ease; }
+.t-go:hover { background: var(--bordeaux-dark); }
+.t-go strong { font: 700 var(--t-heading)/1.05 var(--serif); max-width: 10ch; }
+.t-go svg { align-self: flex-end; width: 56px; height: 56px; transition: transform .3s var(--ease-out); }
+.t-go:hover svg { transform: translate(4px, -4px); }
+@media (max-width: 860px) {
+  .tiles { grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; }
+  .tile { padding: 20px; min-height: 150px; }
+  .t-word, .t-go { grid-column: 1 / -1; min-height: 160px; }
+  .t-word { order: -2; } .t-go { order: -1; }
+  .t-nav, .t-mail { grid-column: span 1; }
+  .t-city, .t-say { grid-column: span 1; }
+  .t-word span { font-size: 6rem; }
+}
+
+/* ——— La gattina animata (cat.js) ——— */
+.cat-stage { position: relative; aspect-ratio: 539 / 964; }
+.cat-stage .kc-layer, .cat-stage .kc-head-wrap, .cat-stage .kc-arm {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  pointer-events: none; user-select: none; -webkit-user-drag: none; will-change: transform;
+}
+.cat-stage .kc-lid { position: absolute; border-radius: 50%; transform: scaleY(0); transform-origin: 50% 0; box-shadow: inset 0 -2px 0 rgba(120, 70, 30, .35); } /* taste-skill-ignore: palpebra della gattina */
+.cat-stage .kc-tongue { position: absolute; border-radius: 40% 40% 50% 50%; background: #E88C93; opacity: 0; transform-origin: 50% 0; }
+.cat-stage .cat { width: 100%; height: 100%; }
+
+/* ——— Movimento: entrate a scaglioni e la foto che respira ———
+   Senza script, o con «riduci movimento», tutto è già al suo posto. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-in] > * { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
+  .js [data-in].in > * { opacity: 1; transform: none; }
+  .hero__photo { animation: drift 26s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
+  .ticket { animation: arrive .9s var(--ease-out) both .15s; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(28px) rotate(-1.2deg); } }
+}
