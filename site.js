@@ -99,9 +99,29 @@
     select.addEventListener('change', function () {
       if (select.value) { mostra(select.value); salva('kumi-citta', corrente); }
     });
+    // «Un'altra città» gira come una slot: i nomi scorrono veloci, rallentano
+    // e si fermano su una città a caso; poi arrivano la foto e il luogo.
+    var gira = false;
     if (next) next.addEventListener('click', function () {
+      if (gira) return;
       var altre = CITTA.filter(function (c) { return c.c !== corrente; });
-      mostra(altre[Math.floor(Math.random() * altre.length)].c);
+      var meta = altre[Math.floor(Math.random() * altre.length)].c;
+      if (calmo) { mostra(meta); salva('kumi-citta', meta); return; }
+      gira = true; next.disabled = true;
+      place.classList.add('spin');
+      var giri = 14, n = 0;
+      (function tick() {
+        n++;
+        var nome = n < giri ? CITTA[Math.floor(Math.random() * CITTA.length)].c : meta;
+        place.textContent = nome;
+        if (place.animate) place.animate([{ transform: 'translateY(-60%)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: Math.min(220, 50 + n * 12), easing: 'ease-out' });
+        if (n < giri) { setTimeout(tick, 45 + n * n * 1.6); return; }
+        setTimeout(function () {
+          place.classList.remove('spin');
+          mostra(meta); salva('kumi-citta', meta);
+          gira = false; next.disabled = false;
+        }, 380);
+      })();
     });
     var ricordata = leggi('kumi-citta');
     mostra(trova(ricordata) ? ricordata : 'Napoli', true);
@@ -365,6 +385,25 @@
   }
 
   /* ——— 8. Un po' più di vita ——— */
+
+  // Lo scontrino si spunta: ogni riga prende il suo segno quando ci arrivi.
+  var righe = document.querySelectorAll('.slip li');
+  if (righe.length) {
+    // Si guarda a ogni scorrimento (sono poche righe): così anche scorrendo in
+    // fretta, o saltando con un link, tutte quelle già passate sono spuntate.
+    var fatte = 0, aspetto = false;
+    var controlla = function () {
+      aspetto = false;
+      var linea = window.innerHeight * 0.6;
+      while (fatte < righe.length && righe[fatte].getBoundingClientRect().top < linea) {
+        righe[fatte].classList.add('fatto'); fatte++;
+      }
+      if (fatte >= righe.length) window.removeEventListener('scroll', suScroll);
+    };
+    var suScroll = function () { if (!aspetto) { aspetto = true; requestAnimationFrame(controlla); } };
+    window.addEventListener('scroll', suScroll, { passive: true });
+    controlla();
+  }
   var mouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Il biglietto e la tessera Premium si inclinano appena verso il mouse.
