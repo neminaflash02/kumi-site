@@ -2,7 +2,7 @@
    di carta sopra il lungomare, poi gli altri pezzi della stessa cancelleria
    (la cartolina della città, lo scontrino della settimana, la lettera, il
    menu). Colori pieni del marchio, niente sfumature né ombre a riposo.
-   Le pagine legali usano ancora style.css. */
+   Le pagine legali e di servizio aggiungono doc.css. */
 :root {
   --bordeaux: #a21d33;
   --bordeaux-dark: #7d1527;
