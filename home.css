@@ -487,10 +487,52 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   .js [data-in].in > * { opacity: 1; transform: none; }
   .hero__photo { animation: drift 26s ease-in-out infinite alternate; }
   @keyframes drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
-  .ticket { animation: arrive .9s var(--ease-out) both .15s; }
+  .ticket { animation: arrive .9s var(--ease-out) backwards .15s; }
   .js .slip { clip-path: inset(0 0 100% 0); transition: clip-path 2.2s cubic-bezier(.45, .05, .35, 1); }
   .js .slip.in { clip-path: inset(0 0 -20px 0); }
   .js .slip li, .js .slip h3, .js .slip .end { opacity: 0; transition: opacity .4s ease; transition-delay: calc(var(--r, 0) * 110ms + 150ms); }
   .js .slip.in li, .js .slip.in h3, .js .slip.in .end { opacity: 1; }
   @keyframes arrive { from { opacity: 0; transform: translateY(28px) rotate(-1.2deg); } }
+}
+
+/* ——— Un po' più di vita (14 ott) ———
+   Tutto con transform e opacity; con «riduci movimento» non si muove niente. */
+
+/* il biglietto e la tessera si inclinano appena verso il mouse, come in mano */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .ticket, .card { transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease-out); }
+  .ticket.tilting, .card.tilting { transition: transform .12s linear; }
+}
+
+/* «C'è affinità!»: il timbro sulla scheda quando avete almeno due cose in comune */
+.pcard { position: relative; }
+.pcard__stamp {
+  position: absolute; right: 18px; bottom: 14px; pointer-events: none;
+  padding: 6px 12px; border: 3px solid var(--bordeaux); border-radius: 8px;
+  font: italic 700 1.0625rem/1 var(--serif); color: var(--bordeaux); background: var(--paper);
+  opacity: 0; transform: rotate(-10deg) scale(1.5);
+}
+.pcard__stamp.on { opacity: 1; transform: rotate(-10deg) scale(1); transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), opacity .12s ease; }
+.pcard__face { transition: transform .45s var(--ease-out); }
+
+/* la cartolina della città si trascina col dito o col mouse */
+.city__plate .frame { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.city__plate .frame.drag { cursor: grabbing; }
+.city__plate .frame img { -webkit-user-drag: none; pointer-events: none; }
+.city__hint { margin: 2px 0 0; font-size: var(--t-small); font-weight: 700; color: var(--soft); }
+
+/* i piani di Premium: la pillola oro scivola sotto il piano scelto */
+.plans { position: relative; isolation: isolate; }
+.plans.has-pill { background: #2c2b27; border-radius: 999px; padding: 4px; gap: 0; }
+.plans.has-pill button { background: transparent; }
+.plans.has-pill button:hover:not([aria-checked="true"]) { background: #3a3832; }
+.plans__pill { position: absolute; top: 4px; left: 0; height: calc(100% - 8px); border-radius: 999px; background: var(--gold); z-index: -1; transition: transform .4s var(--ease-out), width .4s var(--ease-out); }
+.plans.has-pill button[aria-checked="true"] { background: transparent; color: var(--night); }
+.plans.has-pill button { transition: color .25s ease, background-color .18s ease, transform .18s var(--ease-out); }
+
+/* le schermate si trascinano anche col mouse */
+@media (hover: hover) and (pointer: fine) {
+  .screens { cursor: grab; }
+  .screens.drag { cursor: grabbing; scroll-snap-type: none; }
+  .screens.drag img { pointer-events: none; }
 }

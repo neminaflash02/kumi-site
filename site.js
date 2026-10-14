@@ -268,7 +268,8 @@
     var nome = document.getElementById('m-name'), luogo = document.getElementById('m-city'), viso = document.getElementById('m-face');
     var pct = document.getElementById('m-pct'), barra = document.getElementById('m-bar'), comune = document.getElementById('m-common');
     var chat = document.getElementById('m-chat'), d1 = document.getElementById('m-say1'), d2 = document.getElementById('m-say2');
-    var mostrato = 0, ultima = '';
+    var mostrato = 0, ultima = '', persona = '';
+    var timbro = document.getElementById('m-stamp');
     function etichetta(k) { return EN ? IT_EN[k] : k; }
     function conta(da, a) {
       if (calmo) { pct.textContent = a; return; }
@@ -283,6 +284,7 @@
       luogo.textContent = cittaGioco;
       if (!scelti.length) {
         conta(mostrato, 0); mostrato = 0;
+        if (timbro) timbro.classList.remove('on');
         barra.style.transform = 'scaleX(0)';
         comune.textContent = EN ? 'Pick at least one interest to see your affinity.' : 'Scegli almeno un interesse per vedere la tua affinità.';
         chat.classList.add('off');
@@ -296,6 +298,16 @@
       var valore = inComune.length ? Math.min(98, 52 + inComune.length * 12 + Math.round(inComune.length / scelti.length * 10)) : 23 + scelti.length * 3;
       nome.textContent = meglio.n + ', ' + meglio.e;
       viso.textContent = meglio.n.charAt(0);
+      if (persona && persona !== meglio.n && !calmo && viso.animate) {
+        // cambia l'amica più affine: il viso si gira come una carta
+        viso.animate([{ transform: 'rotateY(90deg) scale(.9)' }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
+      }
+      persona = meglio.n;
+      if (timbro) {
+        var acceso = inComune.length >= 2;
+        if (acceso && !timbro.classList.contains('on')) { timbro.classList.remove('on'); void timbro.offsetWidth; }
+        timbro.classList.toggle('on', acceso);
+      }
       conta(mostrato, valore); mostrato = valore;
       barra.style.transform = 'scaleX(' + valore / 100 + ')';
       comune.innerHTML = '';
@@ -321,6 +333,7 @@
         var k = b.getAttribute('data-int'), on = b.getAttribute('aria-pressed') !== 'true';
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
         if (on) scelti.push(k); else scelti = scelti.filter(function (x) { return x !== k; });
+        if (on && !calmo && b.animate) b.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 300, easing: 'cubic-bezier(.3,1.4,.5,1)' });
         aggiorna();
       });
     });
@@ -348,6 +361,109 @@
         prezzo.textContent = v[0]; nota.textContent = v[1];
         if (!calmo && prezzo.animate) prezzo.animate([{ transform: 'translateY(8px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
       });
+    });
+  }
+
+  /* ——— 8. Un po' più di vita ——— */
+  var mouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Il biglietto e la tessera Premium si inclinano appena verso il mouse.
+  function inclina(zona, el, gradi) {
+    if (!zona || !el || calmo || !mouse) return;
+    var attesa = false, ex = 0, ey = 0;
+    zona.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      ex = Math.max(-1, Math.min(1, (e.clientX - r.left) / r.width * 2 - 1));
+      ey = Math.max(-1, Math.min(1, (e.clientY - r.top) / r.height * 2 - 1));
+      if (attesa) return;
+      attesa = true;
+      requestAnimationFrame(function () {
+        attesa = false;
+        el.classList.add('tilting');
+        el.style.setProperty('--ry', (ex * gradi).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (-ey * gradi).toFixed(2) + 'deg');
+      });
+    });
+    zona.addEventListener('pointerleave', function () {
+      el.classList.remove('tilting');
+      el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg');
+    });
+  }
+  inclina(document.querySelector('.hero__stage'), document.querySelector('.ticket'), 4);
+  inclina(document.querySelector('.card-pass'), document.querySelector('.card'), 6);
+
+  // La cartolina della città: trascinandola a destra o a sinistra cambia città.
+  var cornice = document.querySelector('.city__plate .frame');
+  if (cornice && img && CITTA.length) {
+    var x0 = null, dx = 0, chi = null;
+    cornice.addEventListener('pointerdown', function (e) {
+      x0 = e.clientX; dx = 0; chi = e.pointerId;
+      cornice.setPointerCapture(chi); cornice.classList.add('drag');
+    });
+    cornice.addEventListener('pointermove', function (e) {
+      if (x0 === null || e.pointerId !== chi) return;
+      dx = e.clientX - x0;
+      if (!calmo) img.style.transform = 'translateX(' + dx * 0.6 + 'px) rotate(' + dx * 0.02 + 'deg)';
+    });
+    function lascia() {
+      if (x0 === null) return;
+      cornice.classList.remove('drag');
+      img.style.transform = '';
+      if (Math.abs(dx) > 50) {
+        var i = 0;
+        for (; i < CITTA.length; i++) if (CITTA[i].c === corrente) break;
+        var dopo = CITTA[(i + (dx < 0 ? 1 : -1) + CITTA.length) % CITTA.length].c;
+        mostra(dopo);
+        salva('kumi-citta', dopo);
+        if (!calmo && img.animate) img.animate([{ transform: 'translateX(' + (dx < 0 ? 60 : -60) + 'px)' }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
+      }
+      x0 = null; dx = 0;
+    }
+    cornice.addEventListener('pointerup', lascia);
+    cornice.addEventListener('pointercancel', lascia);
+  }
+
+  // Premium: la pillola oro scivola sotto il piano scelto.
+  var gruppo = document.querySelector('.plans');
+  if (gruppo) {
+    var pillola = document.createElement('span');
+    pillola.className = 'plans__pill'; pillola.setAttribute('aria-hidden', 'true');
+    gruppo.appendChild(pillola); gruppo.classList.add('has-pill');
+    var sposta = function () {
+      var b = gruppo.querySelector('[aria-checked="true"]');
+      if (!b) return;
+      pillola.style.width = b.offsetWidth + 'px';
+      pillola.style.transform = 'translateX(' + b.offsetLeft + 'px)';
+    };
+    gruppo.addEventListener('click', function () { requestAnimationFrame(sposta); });
+    window.addEventListener('resize', sposta);
+    sposta();
+  }
+
+  // Le schermate dell'app si trascinano anche col mouse.
+  if (row && mouse) {
+    var sx = null, sl = 0, mosso = false;
+    row.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      sx = e.clientX; sl = row.scrollLeft; mosso = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (sx === null) return;
+      var d = e.clientX - sx;
+      if (Math.abs(d) > 4) { mosso = true; row.classList.add('drag'); }
+      if (mosso) row.scrollLeft = sl - d;
+    });
+    window.addEventListener('pointerup', function () {
+      if (sx === null) return;
+      sx = null;
+      if (mosso) {
+        // si riaggancia alla schermata più vicina
+        var primo = row.querySelector('.screen');
+        var passo = primo.getBoundingClientRect().width + (parseFloat(getComputedStyle(row).columnGap) || 0);
+        var meta = Math.round(row.scrollLeft / passo) * passo;
+        row.classList.remove('drag');
+        row.scrollTo({ left: meta, behavior: calmo ? 'auto' : 'smooth' });
+      }
     });
   }
 })();

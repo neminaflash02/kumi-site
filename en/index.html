@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="../assets/napoli-tramonto.webp">
-  <link rel="stylesheet" href="../home.css?v=5">
+  <link rel="stylesheet" href="../home.css?v=6">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -111,6 +111,7 @@
             <b class="pcard__pct"><span id="m-pct">0</span>%</b>
           </div>
           <div class="pcard__bar"><i id="m-bar"></i></div>
+          <span class="pcard__stamp" id="m-stamp" aria-hidden="true">There's a spark!</span>
           <p class="pcard__common" id="m-common">Pick at least one interest to see your affinity.</p>
         </div>
         <div class="bubbles" id="m-chat">
@@ -129,6 +130,7 @@
           <div class="frame"><img id="city-img" src="../assets/citta/napoli.webp" alt="Castel Nuovo, Napoli" width="640" height="640" loading="lazy"></div>
           <figcaption id="city-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Naples-Castel_Nuovo.jpg">IgnisFatuus</a>, CC BY-SA 2.5</figcaption>
         </figure>
+        <p class="city__hint">Drag the photo to change city.</p>
       </div>
       <div class="city__text" data-in>
         <div class="tabs" role="group" aria-label="Pick a city">
@@ -321,7 +323,7 @@
   });
 </script>
 <script src="../citta.js?v=2" defer></script>
-<script src="../site.js?v=5" defer></script>
+<script src="../site.js?v=6" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>
