@@ -90,18 +90,22 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   position: relative; z-index: 1;
   width: min(1000px, 100%);
   display: grid; grid-template-columns: 1fr var(--stub);
-  background: var(--paper); color: var(--ink);
-  /* le due tacche del biglietto, sopra e sotto la linea dei puntini */
-  -webkit-mask:
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
-          mask:
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+  color: var(--ink);
 }
 .ticket-hold { position: relative; z-index: 1; width: min(1000px, 100%); transform-origin: 50% 40%; }
 .ticket-hold .ticket { width: 100%; }
-.ticket__main { padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 28px); }
+.ticket__main {
+  padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 28px);
+  background: var(--paper);
+  /* mezze tacche sul bordo destro, dove si strappa */
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask:
+    radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+  transition: transform .7s var(--ease-out);
+}
 .ticket h1 { font-size: var(--t-display); color: var(--bordeaux); max-width: 9.5em; }
 .ticket__facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 8px clamp(20px, 3vw, 40px); margin: 0; }
 .ticket__facts div { min-width: 0; }
@@ -116,35 +120,39 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   padding: clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
   display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
   background: var(--gold-pale);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) top / 100% 51% no-repeat, /* taste-skill-ignore: forma ritagliata */
+    radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) bottom / 100% 51% no-repeat; /* taste-skill-ignore: forma ritagliata */
 }
 .ticket__seats { font: 700 var(--t-display)/1 var(--serif); color: var(--bordeaux); letter-spacing: -.03em; }
 .ticket__seats small { display: block; margin-top: .4em; font: 700 var(--t-body)/1.3 var(--sans); color: var(--ink); letter-spacing: 0; }
 .ticket__stub p { margin: 0; font-size: var(--t-small); color: var(--soft); }
 .ticket__stub .btn { width: 100%; white-space: nowrap; padding-inline: 1em; }
 .ticket__seats { font-size: var(--t-heading); }
-/* «Entra in lista»: il tagliando si stacca, poi torna al suo posto */
-.ticket__stub.torn { animation: tear 1.1s var(--ease-out) both; transform-origin: 0 0; }
+/* «Entra in lista»: il tagliando si stacca e cade, il biglietto si rimette al centro */
+.ticket__stub.torn { transform-origin: 0 0; animation: tear 1.15s both; pointer-events: none; }
 @keyframes tear {
-  0% { transform: none; }
-  25% { transform: translate(6px, 2px) rotate(3deg); }
-  60% { transform: translate(40px, 40px) rotate(14deg); opacity: 1; }
-  61% { opacity: 0; }
-  62% { transform: none; opacity: 0; }
-  100% { transform: none; opacity: 1; }
+  0%   { transform: none; animation-timing-function: cubic-bezier(.3, 0, .6, 1); }
+  22%  { transform: translate(5px, 1px) rotate(4deg); animation-timing-function: cubic-bezier(.5, 0, .9, .5); }
+  100% { transform: translate(90px, 115vh) rotate(32deg); }
 }
+.ticket.strappato .ticket__main { transform: translateX(calc(var(--stub) / 2)); }
+
 
 @media (max-width: 760px) {
   .hero { height: 125svh; }
   .hero__stage { padding: 76px 16px 24px; align-items: center; }
-  .ticket {
-    --stub: 0px; --cut: 124px;
-    grid-template-columns: 1fr;
+  .ticket { --stub: 0px; --cut: 124px; grid-template-columns: 1fr; }
+  .ticket__main {
     -webkit-mask:
-      radial-gradient(circle var(--notch) at 0 calc(100% - var(--cut)), #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
-      radial-gradient(circle var(--notch) at 100% calc(100% - var(--cut)), #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
             mask:
-      radial-gradient(circle var(--notch) at 0 calc(100% - var(--cut)), #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
-      radial-gradient(circle var(--notch) at 100% calc(100% - var(--cut)), #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
   }
   .ticket__main { padding: 22px 20px 20px; gap: 16px; }
   .ticket h1 { font-size: 2.6rem; }
@@ -153,6 +161,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   .ticket__lead { font-size: 1.0625rem; }
   .ticket__stub {
     height: var(--cut); border-left: 0; border-top: 4px dotted var(--gold-accent);
+    -webkit-mask:
+      radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+            mask:
+      radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, /* taste-skill-ignore: forma ritagliata */
+      radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
     display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 18px; padding: 18px 20px;
   }
   .ticket__seats { font-size: 2rem; }
@@ -344,6 +358,42 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .menu dt i { flex: 1 1 24px; min-width: 24px; border-bottom: 4px dotted var(--gold-accent); transform: translateY(-4px); }
 .menu dt b { color: var(--bordeaux); font-size: var(--t-body); }
 .menu dd { margin: 2px 0 0; max-width: 40ch; color: var(--soft); font-size: var(--t-body); }
+
+/* ——— 8. Premium: la tessera nera e oro ——— */
+.premium { background: var(--gold-pale); padding: var(--section) var(--margin); }
+.premium__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.premium h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.premium__free > p { margin-top: 20px; max-width: 34ch; font-size: var(--t-lead); line-height: 1.45; }
+.premium h3 { font: 700 var(--t-body)/1.3 var(--sans); margin: 36px 0 12px; }
+.free-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.free-list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.free-list li::before {
+  content: ""; width: 12px; height: 12px; margin-top: .45em; border-radius: 50%; background: var(--bordeaux);
+}
+/* la tessera è una carta vera: angoli tondi come una tessera del museo */
+.card { background: var(--night); color: var(--paper); border-radius: 22px; padding: clamp(24px, 3.4vw, 40px); }
+.card__name { margin: 0 0 24px; font: italic 700 var(--t-heading)/1 var(--serif); color: var(--gold); }
+.card__name span { font-style: normal; color: var(--paper); }
+.card__perks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+.card__perks strong { display: block; color: var(--gold); }
+.card__perks li { font-size: var(--t-small); line-height: 1.45; color: #e9e4c8; }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 32px; }
+.plans button {
+  min-height: 48px; border: 0; border-radius: 999px; cursor: pointer;
+  font: 700 var(--t-body)/1 var(--sans); background: #2c2b27; color: var(--paper);
+  transition: background-color .18s ease, color .18s ease, transform .18s var(--ease-out);
+}
+.plans button:hover { background: #3a3832; }
+.plans button:active { transform: scale(.96); }
+.plans button[aria-checked="true"] { background: var(--gold); color: var(--night); }
+.card__price { margin: 22px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.card__price b { font: 700 var(--t-heading)/1 var(--serif); color: var(--paper); font-variant-numeric: tabular-nums; }
+.card__price span { color: #e9e4c8; }
+.card__fine { margin: 14px 4px 0; font-size: var(--t-small); color: var(--soft); }
+@media (max-width: 860px) {
+  .premium__wrap { grid-template-columns: 1fr; }
+  .card__perks { grid-template-columns: 1fr; }
+}
 
 /* ——— 8. Lista d'attesa: un tagliando da compilare ——— */
 .wait { padding: var(--section) var(--margin); }

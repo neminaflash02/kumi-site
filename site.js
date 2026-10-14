@@ -4,7 +4,7 @@
    2. Lista d'attesa: email e città finiscono su Supabase (slice BL); se non
       va, si offre l'email già scritta.
    3. Il biglietto in apertura si rimpicciolisce un poco mentre si scorre,
-      e «Entra in lista d'attesa» strappa il tagliando.
+      e «Entra in lista d'attesa» strappa il tagliando, che cade.
    4. Le parti di ogni sezione entrano a scaglioni quando arrivano a schermo;
       lo scontrino si stampa riga per riga.
    5. Le frecce della fila di schermate.
@@ -164,11 +164,14 @@
     var dove = document.getElementById('lista');
     if (!stub || !dove) return;
     e.preventDefault();
-    stub.classList.remove('torn'); void stub.offsetWidth; stub.classList.add('torn');
+    if (stub.classList.contains('torn')) { dove.scrollIntoView({ behavior: 'smooth' }); return; }
+    stub.classList.add('torn');                       // si stacca e cade (home.css)
+    var biglietto = stub.closest('.ticket');
+    setTimeout(function () { biglietto.classList.add('strappato'); }, 420);
     setTimeout(function () {
       dove.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(function () { if (wEmail) wEmail.focus({ preventScroll: true }); }, 700);
-    }, 520);
+      setTimeout(function () { if (wEmail) wEmail.focus({ preventScroll: true }); }, 800);
+    }, 1250);
   });
 
   /* ——— 3. Il biglietto che si rimpicciolisce ——— */
@@ -312,5 +315,24 @@
     });
     window.KUMI_AFFINITA = function (c) { cittaGioco = c; aggiorna(); };
     aggiorna();
+  }
+
+  /* ——— 7. Premium: i tre piani (prezzi scelti il 13 ott, gli stessi di App Store) ——— */
+  var piani = document.querySelectorAll('.plans button');
+  if (piani.length) {
+    var PIANI_P = EN ? [
+      ['€2.99', 'a week'], ['€4.99', "a month, that's €1.15 a week"], ['€11.99', "every 3 months, that's €0.92 a week"]
+    ] : [
+      ['2,99 €', 'a settimana'], ['4,99 €', 'al mese, cioè 1,15 € a settimana'], ['11,99 €', 'ogni 3 mesi, cioè 0,92 € a settimana']
+    ];
+    var prezzo = document.getElementById('p-price'), nota = document.getElementById('p-note');
+    piani.forEach(function (b) {
+      b.addEventListener('click', function () {
+        piani.forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+        var v = PIANI_P[+b.getAttribute('data-plan')];
+        prezzo.textContent = v[0]; nota.textContent = v[1];
+        if (!calmo && prezzo.animate) prezzo.animate([{ transform: 'translateY(8px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+      });
+    });
   }
 })();

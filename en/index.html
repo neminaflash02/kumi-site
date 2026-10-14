@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="../assets/napoli-tramonto.webp">
-  <link rel="stylesheet" href="../home.css?v=2">
+  <link rel="stylesheet" href="../home.css?v=3">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -44,8 +44,8 @@
   </a>
   <nav aria-label="Sections">
     <a href="#affinita">Affinity</a>
-    <a href="#citta">Your city</a>
     <a href="#come">How it works</a>
+    <a href="#premium">Premium</a>
     <a href="#sicurezza">Safety</a>
     <a href="#lista">Waitlist</a>
     <a class="lang" href="../" lang="it" hreflang="it" data-lang="it" aria-label="Italiano">IT</a>
@@ -155,14 +155,14 @@
     <div class="week__wrap">
       <div class="week__title" data-in>
         <h2>How it works.</h2>
-        <p>From signing up to meeting for the first time, in four steps. Everything in the app leads to meeting in person.</p>
+        <p>From signing up to meeting for the first time, in four steps.</p>
       </div>
       <div class="slip" id="slip">
         <h3>You sign up</h3>
         <ol>
           <li><span>Pick your interests</span><i></i><b>free</b></li>
           <li><span>Take the verification selfie</span><i></i><b>once</b></li>
-          <li><span>A person on our team checks it</span><i></i><b>by hand</b></li>
+          <li><span>Our team checks it</span><i></i><b>by hand</b></li>
         </ol>
         <h3>You get to know each other</h3>
         <ol>
@@ -213,7 +213,7 @@
     <article class="sheet" data-in>
       <div class="who"><img src="../assets/gattina-tonda.webp" alt="Kumi's kitten" width="76" height="76" loading="lazy"><h2>Made for friendship.</h2></div>
       <p>Kumi was made for meeting other women and doing activities together: drinks, an exhibition, a walk, a concert. It's not a dating app: here you look for friends.</p>
-      <p>Every profile is verified with a selfie, checked by a person on our team. <mark>Without the badge you can't see where and when events happen.</mark></p>
+      <p>Every profile is verified with a selfie, checked by our team. <mark>Without the badge you can't see where and when events happen.</mark></p>
       <p>You can suggest events yourselves, or find them ready in your city. Every event has a set number of places, so the group stays small and you really get to know each other.</p>
       <p>Got an idea or a question? <a class="link" href="mailto:info@kumiapp.space">Write to us</a>: the Kumi team will reply.</p>
       <p class="sign">The Kumi team</p>
@@ -225,7 +225,7 @@
     <div class="menu__sheet" data-in>
       <h2>To feel safe.</h2>
       <dl>
-        <div class="row"><dt>Selfie check<i></i><b>by a person</b></dt><dd>Women only, real profiles only. Without the badge, events don't show where and when.</dd></div>
+        <div class="row"><dt>Selfie check<i></i><b>checked by our team</b></dt><dd>Women only, real profiles only. Without the badge, events don't show where and when.</dd></div>
         <div class="row"><dt>Block and report<i></i><b>always</b></dt><dd>Anyone you block disappears on both sides, chat included. Three reports and the account is suspended.</dd></div>
         <div class="row"><dt>Small groups<i></i><b>limited places</b></dt><dd>Every event has a set number of places, in public spots, with an event chat to agree on the details.</dd></div>
         <div class="row"><dt>Your data<i></i><b>stays yours</b></dt><dd>Nobody sees your surname or date of birth. You can delete your account in one tap, with everything in it.</dd></div>
@@ -233,7 +233,45 @@
     </div>
   </section>
 
-  <!-- 8. Waitlist -->
+  <!-- 8. Premium -->
+  <section id="premium" class="premium">
+    <div class="premium__wrap">
+      <div class="premium__free" data-in>
+        <h2>Free, with an extra.</h2>
+        <p>Kumi is free to use. With Premium, if you like, you get a little more.</p>
+        <h3>Always free</h3>
+        <ul class="free-list">
+          <li>People, affinity, likes and matches</li>
+          <li>Chat with photos, GIFs and voice notes</li>
+          <li>Joining events in your city</li>
+          <li>Organising up to 3 upcoming events at once</li>
+          <li>Worth a visit, selfie check, block and report</li>
+        </ul>
+      </div>
+      <div class="card-pass" data-in>
+        <div class="card" data-ui>
+          <p class="card__name">Kumi <span>Premium</span></p>
+          <ul class="card__perks">
+            <li><strong>See who liked you</strong>See who noticed you and like them back straight away.</li>
+            <li><strong>Advanced filters</strong>Verified profiles only, personality sliders and artists in common.</li>
+            <li><strong>Backtrack</strong>Go back to a profile you skipped.</li>
+            <li><strong>Unlimited events</strong>More than 3 upcoming events at once.</li>
+            <li><strong>Expired chats reopened</strong>Pick up conversations left hanging.</li>
+            <li><strong>Top of the waitlist</strong>When an event is full, the first free place is yours.</li>
+          </ul>
+          <div class="plans" role="radiogroup" aria-label="Length">
+            <button type="button" role="radio" aria-checked="false" data-plan="0">1 week</button>
+            <button type="button" role="radio" aria-checked="true" data-plan="1">1 month</button>
+            <button type="button" role="radio" aria-checked="false" data-plan="2">3 months</button>
+          </div>
+          <p class="card__price" aria-live="polite"><b id="p-price">€4.99</b> <span id="p-note">a month, that's €1.15 a week</span></p>
+        </div>
+        <p class="card__fine">App Store subscription: it renews automatically and you can cancel any time from your iPhone settings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Waitlist -->
   <section id="lista" class="wait">
     <div class="wait__wrap">
       <div class="wait__text" data-in>
@@ -283,7 +321,7 @@
   });
 </script>
 <script src="../citta.js?v=2" defer></script>
-<script src="../site.js?v=2" defer></script>
+<script src="../site.js?v=3" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>
