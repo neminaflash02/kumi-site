@@ -467,7 +467,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .t-city { grid-column: span 2; background: var(--gold); }
 .t-city p { margin: 0; font-weight: 700; }
 .t-mail { grid-column: span 3; background: var(--paper); justify-content: flex-end; }
-.t-mail a { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); word-break: break-word; }
+.t-mail a { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); }  /* va a capo dopo la @ (<wbr>), non a metà parola */
 .t-word { grid-column: span 8; min-height: 320px; background: var(--night); color: var(--paper); display: grid; place-items: center; }
 .t-word span { font: italic 700 clamp(5rem, 14vw, 12rem)/1 var(--serif); letter-spacing: -.03em; }
 .t-go { grid-column: span 4; min-height: 320px; background: var(--bordeaux); color: var(--paper); transition: background-color .2s ease; }
