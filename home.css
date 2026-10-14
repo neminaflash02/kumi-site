@@ -515,12 +515,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .pcard__stamp.on { opacity: 1; transform: rotate(-10deg) scale(1); transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), opacity .12s ease; }
 .pcard__face { transition: transform .45s var(--ease-out); }
 
-/* la cartolina della città si trascina col dito o col mouse */
-.city__plate .frame { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.city__plate .frame.drag { cursor: grabbing; }
-.city__plate .frame img { -webkit-user-drag: none; pointer-events: none; }
-.city__hint { margin: 2px 0 0; font-size: var(--t-small); font-weight: 700; color: var(--soft); }
-
 /* i piani di Premium: la pillola oro scivola sotto il piano scelto */
 .plans { position: relative; isolation: isolate; }
 .plans.has-pill { background: #2c2b27; border-radius: 999px; padding: 4px; gap: 0; }

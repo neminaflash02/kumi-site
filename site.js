@@ -392,37 +392,6 @@
   inclina(document.querySelector('.hero__stage'), document.querySelector('.ticket'), 4);
   inclina(document.querySelector('.card-pass'), document.querySelector('.card'), 6);
 
-  // La cartolina della città: trascinandola a destra o a sinistra cambia città.
-  var cornice = document.querySelector('.city__plate .frame');
-  if (cornice && img && CITTA.length) {
-    var x0 = null, dx = 0, chi = null;
-    cornice.addEventListener('pointerdown', function (e) {
-      x0 = e.clientX; dx = 0; chi = e.pointerId;
-      cornice.setPointerCapture(chi); cornice.classList.add('drag');
-    });
-    cornice.addEventListener('pointermove', function (e) {
-      if (x0 === null || e.pointerId !== chi) return;
-      dx = e.clientX - x0;
-      if (!calmo) img.style.transform = 'translateX(' + dx * 0.6 + 'px) rotate(' + dx * 0.02 + 'deg)';
-    });
-    function lascia() {
-      if (x0 === null) return;
-      cornice.classList.remove('drag');
-      img.style.transform = '';
-      if (Math.abs(dx) > 50) {
-        var i = 0;
-        for (; i < CITTA.length; i++) if (CITTA[i].c === corrente) break;
-        var dopo = CITTA[(i + (dx < 0 ? 1 : -1) + CITTA.length) % CITTA.length].c;
-        mostra(dopo);
-        salva('kumi-citta', dopo);
-        if (!calmo && img.animate) img.animate([{ transform: 'translateX(' + (dx < 0 ? 60 : -60) + 'px)' }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
-      }
-      x0 = null; dx = 0;
-    }
-    cornice.addEventListener('pointerup', lascia);
-    cornice.addEventListener('pointercancel', lascia);
-  }
-
   // Premium: la pillola oro scivola sotto il piano scelto.
   var gruppo = document.querySelector('.plans');
   if (gruppo) {
