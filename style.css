@@ -108,6 +108,8 @@ p { margin: 0 0 1em; }
   border: 1.5px solid var(--gold-accent);
   box-shadow: none; transform: none; cursor: default;
 }
+/* «In arrivo» in alto: porta giù ad «Avvisami», quindi si può premere. */
+a.btn.soon { cursor: pointer; }
 
 .note { font-size: .95rem; color: var(--ink); opacity: .75; margin: 0; }
 
@@ -192,8 +194,8 @@ section { padding: 4rem 0; }
 @media (max-width: 700px) {
   .shots-head { align-items: center; }
   .shots-head .section-head { margin-bottom: 1.5rem; }
-  .shots-nav { margin-bottom: 1.5rem; }
-  .shots-nav button { width: 42px; height: 42px; }
+  /* da telefono si scorre col dito: le frecce rubavano spazio al titolo */
+  .shots-nav { display: none; }
   .screens {
     gap: 1.2rem;
     /* su telefono sborda da entrambi i lati: il primo non e' incollato al margine */
@@ -229,14 +231,8 @@ section { padding: 4rem 0; }
 .final { position: relative; overflow: hidden; text-align: center; padding: 7rem 0; }
 .final .wrap { position: relative; z-index: 1; }
 .final .stores { justify-content: center; }
-/* La K del logo, grande e sfumata, dietro la chiusura */
-.big-k {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%);
-  font-family: var(--serif); font-style: italic; font-weight: 700; font-size: clamp(14rem, 30vw, 21rem);
-  line-height: 1; pointer-events: none; user-select: none;
-  background: linear-gradient(180deg, rgba(162, 29, 51, .10), rgba(201, 162, 75, .06));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+.final .note { margin-top: .4rem; font-size: .92rem; }
+.final .note a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* Piede */
 footer { border-top: 1px solid var(--line); padding: 2rem 0 2.6rem; font-size: .92rem; color: var(--muted); }
