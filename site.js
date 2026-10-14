@@ -202,7 +202,18 @@
     var io = new IntersectionObserver(function (voci) {
       voci.forEach(function (v) { if (v.isIntersecting) { v.target.classList.add('in'); io.unobserve(v.target); } });
     }, { rootMargin: '0px 0px -12% 0px' });
-    blocchi.forEach(function (b) { io.observe(b); });
+    blocchi.forEach(function (b) {
+      // Un blocco senza riquadro proprio (display: contents, come «Prova
+      // l'affinità» da telefono) non viene mai visto dall'osservatore e
+      // resterebbe invisibile: per quelli si guarda la sezione intorno.
+      if (getComputedStyle(b).display === 'contents') {
+        var sez = b.closest('section') || b.parentElement;
+        var io2 = new IntersectionObserver(function (v) {
+          if (v[0].isIntersecting) { b.classList.add('in'); io2.disconnect(); }
+        }, { rootMargin: '0px 0px -12% 0px' });
+        io2.observe(sez);
+      } else io.observe(b);
+    });
   } else blocchi.forEach(function (b) { b.classList.add('in'); });
 
   /* ——— 5. Frecce della fila di schermate ——— */
