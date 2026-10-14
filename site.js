@@ -325,6 +325,10 @@
       });
     });
     window.KUMI_AFFINITA = function (c) { cittaGioco = c; aggiorna(); };
+    // Si parte con «Arte» già scelta: la scheda e la chat si vedono subito,
+    // la sezione è piena e si capisce che gli altri interessi si toccano.
+    var primo = document.querySelector('.chips button[data-int="arte"]');
+    if (primo) { primo.setAttribute('aria-pressed', 'true'); scelti.push('arte'); }
     aggiorna();
   }
 
