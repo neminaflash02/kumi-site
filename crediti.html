@@ -4,27 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crediti delle foto — Kumi</title>
+  <meta name="description" content="Crediti delle foto">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f1f0cc">
+  <meta name="theme-color" content="#1a1a1a">
+  <link rel="canonical" href="https://kumiapp.space/crediti.html">
+  <link rel="alternate" hreflang="it" href="https://kumiapp.space/crediti.html">
+  <link rel="alternate" hreflang="en" href="https://kumiapp.space/en/credits.html">
+  <link rel="alternate" hreflang="x-default" href="https://kumiapp.space/crediti.html">
   <link rel="icon" href="assets/kumi-k-icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/kumi-k-touch.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="home.css?v=9">
+  <link rel="stylesheet" href="doc.css?v=2">
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="./" aria-label="Kumi"><img src="assets/logo-k-quadrato.png" alt="" width="38" height="38">Kumi</a>
-    <nav>
-      <a class="btn cta ghost" href="./">Torna al sito</a>
-      <a class="lang" href="en/credits.html" lang="en" hreflang="en" data-lang="en">EN</a>
-    </nav>
-  </div>
+<header class="bar solid">
+  <a class="brand" href="./" aria-label="Kumi"><img src="assets/logo-k-quadrato.png" alt="" width="36" height="36">Kumi</a>
+  <nav aria-label="Navigazione">
+    <a href="./">Torna al sito</a>
+    <a class="lang" href="en/credits.html" lang="en" hreflang="en" data-lang="en">EN</a>
+  </nav>
 </header>
-<main class="doc">
-  <div class="wrap">
-<h1>Crediti delle foto</h1>
+<main>
+  <div class="doc-head"><div class="doc-head__in"><h1>Crediti delle foto</h1></div></div>
+  <div class="doc"><article class="sheet">
 <p>Le foto delle città sul sito vengono da <a href="https://commons.wikimedia.org/">Wikimedia Commons</a> e sono usate con le licenze dei loro autori, che ringraziamo. Non sono foto di Kumi né di persone iscritte a Kumi. Le schermate dell'app sono nostre e mostrano i profili della demo.</p>
 <ul>
 <li>Apertura, Castel dell&#x27;Ovo a Napoli: foto di <a href="https://commons.wikimedia.org/wiki/File:Late_Afternoon_In_Naples_(169339379).jpeg">Giuseppe Pinto</a>, CC BY-SA 3.0</li>
@@ -75,7 +80,23 @@
 <li>Venezia, Palazzo Ducale: foto di <a href="https://commons.wikimedia.org/wiki/File:(Venice)_Doge%27s_Palace_facing_the_sea.jpg">Didier Descouens</a>, CC BY-SA 4.0</li>
 <li>Verona, Arena di Verona: foto di <a href="https://commons.wikimedia.org/wiki/File:Arena-XE3F2406a.jpg">Claconvr</a>, CC BY-SA 4.0</li>
 </ul>
-  </div>
+  </article></div>
 </main>
+<footer class="tiles">
+  <div class="tile t-say"><p>Amicizie tra donne, nella tua città.</p><small>© 2026 Kumi</small></div>
+  <nav class="tile t-nav" aria-label="Pagine"><ul><li><a href="privacy.html">Privacy</a></li><li><a href="termini.html">Termini</a></li><li><a href="regole.html">Regole</a></li><li><a href="crediti.html">Crediti delle foto</a></li></ul></nav>
+  <div class="tile t-city"><p>43 città, da Aosta a Siracusa.</p></div>
+  <div class="tile t-mail"><a href="mailto:info@kumiapp.space">info@kumiapp.space</a></div>
+  <div class="tile t-word" aria-hidden="true"><span>Kumi</span></div>
+  <a class="tile t-go" href="./#lista"><strong>Entra in lista d'attesa</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
+</footer>
+<script>
+  // IT/EN in alto: la scelta resta per le visite successive (come nella home).
+  document.querySelectorAll('a.lang').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('kumi-lang', a.getAttribute('data-lang')); } catch (e) {}
+    });
+  });
+</script>
 </body>
 </html>
