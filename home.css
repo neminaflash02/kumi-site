@@ -121,6 +121,17 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .ticket__seats small { display: block; margin-top: .4em; font: 700 var(--t-body)/1.3 var(--sans); color: var(--ink); letter-spacing: 0; }
 .ticket__stub p { margin: 0; font-size: var(--t-small); color: var(--soft); }
 .ticket__stub .btn { width: 100%; white-space: nowrap; padding-inline: 1em; }
+.ticket__seats { font-size: var(--t-heading); }
+/* «Entra in lista»: il tagliando si stacca, poi torna al suo posto */
+.ticket__stub.torn { animation: tear 1.1s var(--ease-out) both; transform-origin: 0 0; }
+@keyframes tear {
+  0% { transform: none; }
+  25% { transform: translate(6px, 2px) rotate(3deg); }
+  60% { transform: translate(40px, 40px) rotate(14deg); opacity: 1; }
+  61% { opacity: 0; }
+  62% { transform: none; opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
 
 @media (max-width: 760px) {
   .hero { height: 125svh; }
@@ -144,12 +155,62 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
     height: var(--cut); border-left: 0; border-top: 4px dotted var(--gold-accent);
     display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 18px; padding: 18px 20px;
   }
-  .ticket__seats { font-size: 2.6rem; }
-  .ticket__seats small { font-size: var(--t-small); }
+  .ticket__seats { font-size: 2rem; }
+  .ticket__seats small { display: none; }
   .ticket__stub p { display: none; }
 }
 
-/* ——— 2. La tua città: la cartolina quadrata ——— */
+/* ——— 2. Prova l'affinità: gli interessi e la scheda che si aggiorna ——— */
+.match { padding: var(--section) var(--margin); }
+.match__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 6fr 5fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.match h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.match__pick > p { margin-top: 20px; max-width: 38ch; font-size: var(--t-lead); line-height: 1.45; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.chips button {
+  font: 700 var(--t-body)/1 var(--sans); min-height: 48px; padding: 0 20px; border: 0; border-radius: 999px;
+  background: var(--gold-pale); color: var(--ink); cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s var(--ease-out);
+}
+.chips button:hover { background: var(--gold); }
+.chips button:active { transform: scale(.95); }
+.chips button[aria-pressed="true"] { background: var(--bordeaux); color: var(--paper); }
+/* la scheda è un pezzo dell'app, come nel telefono */
+.match__card { display: grid; gap: 14px; }
+.pcard { background: var(--paper); border-radius: 22px; padding: 22px; }
+.pcard__top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; }
+.pcard__face {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--gold); color: var(--bordeaux); font: italic 700 1.6rem/1 var(--serif);
+}
+.pcard__top strong { display: block; font-size: var(--t-lead); line-height: 1.2; }
+.pcard__top div span { color: var(--soft); font-size: var(--t-small); }
+.pcard__pct { font: 700 var(--t-heading)/1 var(--serif); color: var(--bordeaux); font-variant-numeric: tabular-nums; }
+.pcard__bar { height: 10px; border-radius: 99px; background: var(--gold-pale); margin: 18px 0 14px; overflow: hidden; }
+.pcard__bar i { display: block; height: 100%; width: 100%; background: var(--bordeaux); transform-origin: 0 50%; transform: scaleX(0); transition: transform .6s var(--ease-out); }
+.pcard__common { margin: 0; }
+.pcard__common b { color: var(--bordeaux); }
+.bubbles { display: grid; gap: 8px; }
+.bub { margin: 0; max-width: 82%; padding: 12px 16px; border-radius: 20px; font-size: var(--t-body); line-height: 1.4; }
+.bub.me { justify-self: end; background: var(--bordeaux); color: var(--paper); border-bottom-right-radius: 6px; }
+.bub.her { justify-self: start; background: var(--paper); color: var(--ink); border-bottom-left-radius: 6px; }
+.bubbles .bub { transition: opacity .3s ease; }
+.bubbles.off .bub { opacity: 0; }  /* niente bordeaux trasparente: diventerebbe rosa */
+.bubbles.pop .bub { animation: bub .5s var(--ease-out) both; }
+.bubbles.pop .bub.her { animation-delay: .45s; }
+@keyframes bub { from { opacity: 0; transform: translateY(10px) scale(.96); } }
+@media (max-width: 860px) {
+  /* da telefono la scheda sta subito sopra gli interessi, così si vede cambiare */
+  .match__wrap { grid-template-columns: 1fr; gap: 0; }
+  .match__pick, .match__card { display: contents; }
+  .match h2 { order: 1; }
+  .match__pick > p { order: 2; }
+  .pcard { order: 3; margin-top: 24px; }
+  .chips { order: 4; margin-top: 18px; gap: 8px; }
+  .bubbles { order: 5; margin-top: 18px; }
+  .chips button { min-height: 44px; padding: 0 15px; }
+}
+
+/* ——— 3. La tua città: la cartolina quadrata ——— */
 .city { background: var(--gold-pale); }
 .city__wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 88svh; }
 .city__plate { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 10px; }
@@ -190,7 +251,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   .city__actions .btn { flex: 1 1 100%; }
 }
 
-/* ——— 3. La settimana: lo scontrino, col titolo che resta fermo ——— */
+/* ——— 4. Come funziona: lo scontrino, col titolo che resta fermo ——— */
 .week { background: var(--bordeaux); color: var(--paper); padding: var(--section) var(--margin); }
 .week__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
 .week__title { position: sticky; top: 14vh; }
@@ -223,7 +284,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   .slip .end { margin: 24px -20px 0; padding: 0 20px; }
 }
 
-/* ——— 4. Dentro l'app: la fila delle schermate ——— */
+/* ——— 5. Dentro l'app: la fila delle schermate ——— */
 .app { padding: var(--section) 0; }
 .app__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 0 var(--margin); max-width: 1244px; margin: 0 auto 40px; }
 .app h2 { font-size: var(--t-heading); color: var(--bordeaux); }
@@ -249,7 +310,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .screen figcaption strong { display: block; font-family: var(--serif); font-size: var(--t-lead); color: var(--bordeaux); }
 @media (max-width: 760px) { .shots-nav { display: none; } .screen { width: 66vw; } }
 
-/* ——— 5. Chi siamo: la lettera ——— */
+/* ——— 6. La lettera ——— */
 .letter { background: var(--gold); padding: var(--section) var(--margin); }
 .sheet {
   width: min(640px, 100%); margin: 0 auto; background: var(--paper);
@@ -264,15 +325,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .sheet mark { background: var(--gold-pale); color: inherit; padding: 0 .15em; }
 .sheet .sign { margin: 32px 0 0; font: italic 700 var(--t-lead)/1.2 var(--serif); color: var(--bordeaux); }
 .sheet .sign small { display: block; margin-top: 6px; font: var(--t-small)/1.4 var(--sans); color: var(--soft); }
-.tear {
-  width: min(640px, 100%); margin: 14px auto 0; background: var(--paper);
-  border-top: 5px dotted var(--gold-accent);
-  min-height: 80px; padding: 16px clamp(24px, 6vw, 60px);
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-}
-.tear a.mail { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); }
-
-/* ——— 6. Cosa c'è dentro: il menu, su fondo nero ——— */
+/* ——— 7. Sicurezza: il foglio sul fondo nero ——— */
 .menu { background: var(--night); padding: var(--section) var(--margin); }
 .menu__sheet {
   width: min(600px, 100%); margin: 0 auto; background: var(--paper);
@@ -285,8 +338,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
     radial-gradient(circle 9px at 50% 100%, #0000 98%, #000) 0 100% / 22px 51% repeat-x; /* taste-skill-ignore: forma ritagliata */
 }
 .menu h2 { font-size: var(--t-heading); color: var(--bordeaux); text-align: center; margin-bottom: 40px; }
-.menu h3 { font: 700 var(--t-lead)/1.3 var(--sans); margin: 44px 0 6px; scroll-margin-top: 24px; }
-.menu h3:first-of-type { margin-top: 0; }
 .menu dl { margin: 0; }
 .menu .row { padding: 9px 0; }
 .menu dt { display: flex; align-items: baseline; gap: 10px; font-weight: 700; }
@@ -294,27 +345,43 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .menu dt b { color: var(--bordeaux); font-size: var(--t-body); }
 .menu dd { margin: 2px 0 0; max-width: 40ch; color: var(--soft); font-size: var(--t-body); }
 
-/* ——— 7. La frase con lo spazio vuoto: avvisami ——— */
-.ask { padding: var(--section) var(--margin); }
-.ask__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: clamp(24px, 5vw, 80px); align-items: center; }
-.blank { margin: 0; font: 700 var(--t-heading)/1.2 var(--serif); color: var(--bordeaux); letter-spacing: -.02em; }
-.blank input, .blank button {
-  font: inherit; letter-spacing: inherit; height: 1.18em; vertical-align: bottom; border: 0; border-radius: .2em;
-  padding: 0 .25em;
+/* ——— 8. Lista d'attesa: un tagliando da compilare ——— */
+.wait { padding: var(--section) var(--margin); }
+.wait__wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 5fr 5fr auto; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.wait h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.wait__text p { margin-top: 20px; max-width: 34ch; font-size: var(--t-lead); line-height: 1.45; }
+.pass {
+  position: relative; background: var(--gold-pale);
+  -webkit-mask: radial-gradient(circle 14px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask: radial-gradient(circle 14px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
 }
-.blank input { width: 6.2em; background: var(--gold-pale); color: var(--ink); }
-.blank input::placeholder { color: #6f6a52; }
-.blank button { background: var(--bordeaux); color: var(--paper); cursor: pointer; transition: background-color .18s ease, transform .18s var(--ease-out); }
-.blank button:hover { background: var(--bordeaux-dark); }
-.blank button:active { transform: scale(.97); }
-.ask__note { margin-top: 24px; max-width: 52ch; color: var(--soft); }
-.ask__note a { color: var(--bordeaux); font-weight: 700; }
-.ask .cat-stage { width: clamp(150px, 16vw, 220px); }
-@media (max-width: 760px) {
-  .ask__wrap { grid-template-columns: 1fr; }
-  .blank { font-size: 1.75rem; }
-  .blank input { width: 5.2em; }
-  .ask .cat-stage { width: 150px; justify-self: center; grid-row: 1; }
+.pass__body { padding: clamp(24px, 3vw, 36px); display: grid; gap: 8px; }
+.pass label { font-weight: 700; margin-top: 8px; }
+.pass label span { font-weight: 400; color: var(--soft); }
+.pass input {
+  font: inherit; font-size: 1.0625rem; height: 52px; padding: 0 16px; border: 0; border-radius: 12px;
+  background: var(--paper); color: var(--ink);
+}
+.pass input::placeholder { color: #77715a; }
+.pass input[aria-invalid="true"] { outline: 3px solid var(--bordeaux); outline-offset: 0; }
+.pass .btn { margin-top: 16px; width: 100%; }
+.pass .btn[disabled] { opacity: .6; cursor: progress; }
+.pass__msg { margin: 4px 0 0; font-weight: 700; color: var(--bordeaux); min-height: 1.5em; }
+.pass__fine { margin: 0; font-size: var(--t-small); color: var(--soft); }
+.pass__fine a { color: var(--soft); }
+/* il timbro «In lista», che arriva quando l'iscrizione è andata */
+.pass__stamp {
+  position: absolute; right: 18px; top: 18px; pointer-events: none;
+  padding: 10px 16px; border: 4px solid var(--bordeaux); border-radius: 10px;
+  font: italic 700 var(--t-lead)/1 var(--serif); color: var(--bordeaux);
+  transform: rotate(-12deg) scale(1.6); opacity: 0;
+}
+.pass:not(.done) > .pass__stamp { opacity: 0 !important; }
+.pass.done .pass__stamp { opacity: 1; transform: rotate(-12deg) scale(1); transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), opacity .15s ease; }
+.wait .cat-stage { width: clamp(140px, 13vw, 190px); }
+@media (max-width: 960px) {
+  .wait__wrap { grid-template-columns: 1fr; }
+  .wait .cat-stage { width: 140px; justify-self: center; grid-row: 1; }
 }
 
 /* ——— Piede: le tessere ——— */
@@ -366,5 +433,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
   .hero__photo { animation: drift 26s ease-in-out infinite alternate; }
   @keyframes drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
   .ticket { animation: arrive .9s var(--ease-out) both .15s; }
+  .js .slip { clip-path: inset(0 0 100% 0); transition: clip-path 2.2s cubic-bezier(.45, .05, .35, 1); }
+  .js .slip.in { clip-path: inset(0 0 -20px 0); }
+  .js .slip li, .js .slip h3, .js .slip .end { opacity: 0; transition: opacity .4s ease; transition-delay: calc(var(--r, 0) * 110ms + 150ms); }
+  .js .slip.in li, .js .slip.in h3, .js .slip.in .end { opacity: 1; }
   @keyframes arrive { from { opacity: 0; transform: translateY(28px) rotate(-1.2deg); } }
 }

@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="../assets/napoli-tramonto.webp">
-  <link rel="stylesheet" href="../home.css?v=1">
+  <link rel="stylesheet" href="../home.css?v=2">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -43,51 +43,91 @@
     Kumi
   </a>
   <nav aria-label="Sections">
+    <a href="#affinita">Affinity</a>
     <a href="#citta">Your city</a>
     <a href="#come">How it works</a>
     <a href="#sicurezza">Safety</a>
-    <a href="#contatti">Notify me</a>
+    <a href="#lista">Waitlist</a>
     <a class="lang" href="../" lang="it" hreflang="it" data-lang="it" aria-label="Italiano">IT</a>
   </nav>
 </header>
 
 <main>
-  <!-- 1. The ticket -->
+  <!-- 1. The ticket: what Kumi is, straight away -->
   <section class="hero">
     <div class="hero__stage">
       <img class="hero__photo" src="../assets/napoli-tramonto.webp" alt="Castel dell'Ovo and the sea in Naples, late afternoon" width="2048" height="1492" fetchpriority="high">
       <div class="ticket-hold">
-        <article class="ticket" aria-label="An invitation from Kumi">
+        <article class="ticket" aria-label="Admission ticket to Kumi">
           <div class="ticket__main">
             <h1>From chat to real life.</h1>
             <dl class="ticket__facts">
-              <div><dt>What</dt><dd>Sunset drinks</dd></div>
-              <div><dt>When</dt><dd>Saturday, 7pm</dd></div>
-              <div><dt>Where</dt><dd>Lungomare Caracciolo, Naples</dd></div>
+              <div><dt>What</dt><dd>The app for friendships among women</dd></div>
+              <div><dt>How</dt><dd>Affinity, chat, events</dd></div>
+              <div><dt>Where</dt><dd>43 Italian cities</dd></div>
             </dl>
-            <p class="ticket__lead">Kumi introduces you to women who share your interests, in your city. You chat, you make plans and you actually meet.</p>
+            <p class="ticket__lead">Kumi introduces you to women who share your interests. You chat, make plans and go out together: drinks, an exhibition, a concert.</p>
             <div class="ticket__foot">
-              <a class="link" href="#citta">Pick your city</a>
+              <a class="link" href="#affinita">Try the affinity</a>
               <span>Photo: <a class="credit" href="https://commons.wikimedia.org/wiki/File:Late_Afternoon_In_Naples_(169339379).jpeg">Giuseppe Pinto</a>, CC BY-SA 3.0</span>
             </div>
           </div>
           <div class="ticket__stub">
-            <div class="ticket__seats">6/12<small>places taken</small></div>
-            <p>Every event has a set number of places: groups stay small and you really get to know each other.</p>
-            <a class="btn" href="#contatti">Notify me at launch</a>
+            <div class="ticket__seats">Soon<small>on iPhone and Android</small></div>
+            <p>Tear off the stub and join the list: we'll write to you the day it's out.</p>
+            <a class="btn" href="#lista" id="strappa">Join the waitlist</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 2. Your city -->
+  <!-- 2. Try the affinity -->
+  <section id="affinita" class="match">
+    <div class="match__wrap">
+      <div class="match__pick" data-in>
+        <h2>Try the affinity.</h2>
+        <p>Tap what you like. Kumi shows you the women you have the most in common with, and that's where the conversation starts.</p>
+        <div class="chips" role="group" aria-label="Your interests">
+          <button type="button" data-int="arte" aria-pressed="false">Art</button>
+          <button type="button" data-int="musica" aria-pressed="false">Music</button>
+          <button type="button" data-int="yoga" aria-pressed="false">Yoga</button>
+          <button type="button" data-int="viaggi" aria-pressed="false">Travel</button>
+          <button type="button" data-int="cucina" aria-pressed="false">Cooking</button>
+          <button type="button" data-int="libri" aria-pressed="false">Books</button>
+          <button type="button" data-int="cinema" aria-pressed="false">Cinema</button>
+          <button type="button" data-int="vino" aria-pressed="false">Wine</button>
+          <button type="button" data-int="ballo" aria-pressed="false">Dancing</button>
+          <button type="button" data-int="natura" aria-pressed="false">Nature</button>
+          <button type="button" data-int="musei" aria-pressed="false">Museums</button>
+          <button type="button" data-int="concerti" aria-pressed="false">Concerts</button>
+        </div>
+      </div>
+      <div class="match__card" data-ui data-in aria-live="polite">
+        <div class="pcard">
+          <div class="pcard__top">
+            <span class="pcard__face" id="m-face" aria-hidden="true">V</span>
+            <div><strong id="m-name">Valentina, 29</strong><span id="m-city">Napoli</span></div>
+            <b class="pcard__pct"><span id="m-pct">0</span>%</b>
+          </div>
+          <div class="pcard__bar"><i id="m-bar"></i></div>
+          <p class="pcard__common" id="m-common">Pick at least one interest to see your affinity.</p>
+        </div>
+        <div class="bubbles" id="m-chat">
+          <p class="bub me" id="m-say1">Hi Valentina! I saw you love art too.</p>
+          <p class="bub her" id="m-say2">Yes! There's an exhibition in Napoli on Saturday, shall we go together?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Your city -->
   <section id="citta" class="city">
     <div class="city__wrap">
       <div class="city__plate" data-in>
         <figure>
-          <div class="frame"><img id="city-img" src="../assets/citta/napoli.webp" alt="Naples National Archaeological Museum" width="640" height="480" loading="lazy"></div>
-          <figcaption id="city-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Museo_Archeologico_Nazionale_di_Napoli_-_panoramio_(1).jpg">Mister No</a>, CC BY 3.0</figcaption>
+          <div class="frame"><img id="city-img" src="../assets/citta/napoli.webp" alt="Castel Nuovo, Napoli" width="640" height="640" loading="lazy"></div>
+          <figcaption id="city-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Naples-Castel_Nuovo.jpg">IgnisFatuus</a>, CC BY-SA 2.5</figcaption>
         </figure>
       </div>
       <div class="city__text" data-in>
@@ -99,54 +139,54 @@
           <select id="city-select"><option value="">40 more cities</option></select>
         </div>
         <div class="city__body" aria-live="polite">
-          <h2 id="city-place">Naples National Archaeological Museum</h2>
-          <p id="city-line">An invitation in Napoli could look like this: Sunday at 10:30am, 3 of 10 places left. Kumi is in 43 Italian cities, each with its own museums and events.</p>
+          <h2 id="city-place">Castel Nuovo</h2>
+          <p id="city-line">An invitation in Napoli could look like this: Saturday at 5pm. Kumi is in 43 Italian cities, each with its own museums and events.</p>
         </div>
         <div class="city__actions">
-          <a class="btn" href="#contatti">Notify me at launch</a>
+          <a class="btn" href="#lista">Join the waitlist</a>
           <button type="button" class="btn alt" id="city-next">Another city</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. How it works: the week on a receipt -->
+  <!-- 4. How it works: the receipt that prints -->
   <section id="come" class="week">
     <div class="week__wrap">
       <div class="week__title" data-in>
-        <h2>How you get to Saturday.</h2>
-        <p>From the day you sign up to your first drinks together, step by step. Nothing is there for its own sake: everything leads to meeting.</p>
+        <h2>How it works.</h2>
+        <p>From signing up to meeting for the first time, in four steps. Everything in the app leads to meeting in person.</p>
       </div>
-      <div class="slip" data-in>
-        <h3>Monday</h3>
+      <div class="slip" id="slip">
+        <h3>You sign up</h3>
         <ol>
-          <li><span>Sign up and pick your interests</span><i></i><b>free</b></li>
+          <li><span>Pick your interests</span><i></i><b>free</b></li>
           <li><span>Take the verification selfie</span><i></i><b>once</b></li>
           <li><span>A person on our team checks it</span><i></i><b>by hand</b></li>
         </ol>
-        <h3>Tuesday</h3>
+        <h3>You get to know each other</h3>
         <ol>
           <li><span>In People you see your affinity</span><i></i><b>92%</b></li>
-          <li><span>You like each other: it's a match</span><i></i><b>match</b></li>
+          <li><span>You like each other</span><i></i><b>match</b></li>
           <li><span>Time for the first message</span><i></i><b>72 hours</b></li>
         </ol>
-        <h3>Thursday</h3>
+        <h3>You make plans</h3>
         <ol>
           <li><span>In chat you pick an event in town</span><i></i><b>Events</b></li>
           <li><span>You book your place</span><i></i><b>6 of 12</b></li>
           <li><span>If it's full, you join the list</span><i></i><b>waitlist</b></li>
         </ol>
-        <h3>Saturday</h3>
+        <h3>You meet</h3>
         <ol>
           <li><span>You confirm your place</span><i></i><b>within 24 hours</b></li>
           <li><span>Kumi reminds you</span><i></i><b>3 hours before</b></li>
         </ol>
-        <div class="end"><span>You meet on the seafront</span><span>7pm</span></div>
+        <div class="end"><span>Your first meeting</span><span>in person</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Inside the app -->
+  <!-- 5. Inside the app -->
   <section id="app" class="app">
     <div class="app__head" data-in>
       <div>
@@ -160,66 +200,59 @@
     </div>
     <div class="screens" aria-label="Kumi's screens" tabindex="0">
       <figure class="screen"><img src="../assets/en/01_persone.webp?v=5" alt="Kumi's People screen: Aurora's profile, 27, 92% affinity" width="520" height="1126" loading="lazy"><figcaption><strong>People</strong>Women near you, with your affinity as a percentage.</figcaption></figure>
-      <figure class="screen"><img src="../assets/en/05_conversazione.webp?v=5" alt="A conversation on Kumi planning an afternoon together" width="520" height="1126" loading="lazy"><figcaption><strong>Chat</strong>You write, you decide where and when.</figcaption></figure>
-      <figure class="screen"><img src="../assets/en/06_eventi.webp?v=5" alt="The Events screen: drinks at sunset on the Naples seafront" width="520" height="1126" loading="lazy"><figcaption><strong>Events</strong>Group outings, with a map and a chat.</figcaption></figure>
+      <figure class="screen"><img src="../assets/en/05_conversazione.webp?v=5" alt="A conversation on Kumi planning an afternoon together" width="520" height="1126" loading="lazy"><figcaption><strong>Chat</strong>Photos, GIFs and voice notes, to decide where and when.</figcaption></figure>
+      <figure class="screen"><img src="../assets/en/06_eventi.webp?v=5" alt="The Events screen: drinks at sunset on the Naples seafront" width="520" height="1126" loading="lazy"><figcaption><strong>Events</strong>Group outings in your city, with a map and a chat.</figcaption></figure>
       <figure class="screen"><img src="../assets/en/10_davisitare.webp?v=5" alt="The Worth a visit section with museums and landmarks" width="520" height="1126" loading="lazy"><figcaption><strong>Worth a visit</strong>Museums and places to discover together.</figcaption></figure>
-      <figure class="screen"><img src="../assets/en/11_posti.webp?v=5" alt="A full event with the waitlist" width="520" height="1126" loading="lazy"><figcaption><strong>Waitlist</strong>Event full? Wait for your place.</figcaption></figure>
+      <figure class="screen"><img src="../assets/en/11_posti.webp?v=5" alt="A full event with the waitlist" width="520" height="1126" loading="lazy"><figcaption><strong>Places and waitlist</strong>Event full? If someone drops out, the place is yours.</figcaption></figure>
       <figure class="screen"><img src="../assets/en/09_profilo.webp?v=5" alt="Sofia's profile with the verified badge" width="520" height="1126" loading="lazy"><figcaption><strong>Your profile</strong>Photos, interests and the verified badge.</figcaption></figure>
     </div>
   </section>
 
-  <!-- 5. The letter -->
+  <!-- 6. The letter -->
   <section id="chi" class="letter">
     <article class="sheet" data-in>
-      <div class="who"><img src="../assets/gattina-tonda.webp" alt="Kumi's kitten" width="76" height="76" loading="lazy"><h2>It's not a dating app.</h2></div>
-      <p>Kumi is for friendships. You join to meet women to do things with, not to find a partner. Anyone looking for something else has no place here.</p>
-      <p>That's why every profile is verified with a selfie, and the selfie is checked by a person, not an algorithm. <mark>Without the badge you can't see where and when events happen.</mark></p>
-      <p>You can suggest events yourselves, or find them ready in your city: concerts, exhibitions, museums to visit together. Every event has a set number of places, so the group stays small.</p>
-      <p>If you have an idea or a question, write to us: we answer ourselves, not an autoresponder.</p>
-      <p class="sign">The Kumi team<small>Italy, 2026</small></p>
+      <div class="who"><img src="../assets/gattina-tonda.webp" alt="Kumi's kitten" width="76" height="76" loading="lazy"><h2>Made for friendship.</h2></div>
+      <p>Kumi was made for meeting other women and doing activities together: drinks, an exhibition, a walk, a concert. It's not a dating app: here you look for friends.</p>
+      <p>Every profile is verified with a selfie, checked by a person on our team. <mark>Without the badge you can't see where and when events happen.</mark></p>
+      <p>You can suggest events yourselves, or find them ready in your city. Every event has a set number of places, so the group stays small and you really get to know each other.</p>
+      <p>Got an idea or a question? <a class="link" href="mailto:info@kumiapp.space">Write to us</a>: the Kumi team will reply.</p>
+      <p class="sign">The Kumi team</p>
     </article>
-    <div class="tear" data-in>
-      <a class="mail" href="mailto:info@kumiapp.space">info@kumiapp.space</a>
-      <a class="btn" href="mailto:info@kumiapp.space">Write to us</a>
-    </div>
   </section>
 
-  <!-- 6. The menu -->
-  <section class="menu">
+  <!-- 7. Safety -->
+  <section id="sicurezza" class="menu">
     <div class="menu__sheet" data-in>
-      <h2>What's inside.</h2>
-      <h3>To get to know each other</h3>
+      <h2>To feel safe.</h2>
       <dl>
-        <div class="row"><dt>People<i></i><b>affinity in %</b></dt><dd>Profiles of women in your city, with the interests you share.</dd></div>
-        <div class="row"><dt>Filters<i></i><b>age, km, interests</b></dt><dd>You choose who to see, and how far away.</dd></div>
-        <div class="row"><dt>Chat<i></i><b>photos, GIFs, voice</b></dt><dd>With read receipts and who's typing.</dd></div>
-      </dl>
-      <h3>To meet</h3>
-      <dl>
-        <div class="row"><dt>Events in town<i></i><b>43 cities</b></dt><dd>Drinks, exhibitions, concerts: suggested by members or already scheduled.</dd></div>
-        <div class="row"><dt>Worth a visit<i></i><b>museums and places</b></dt><dd>The best places in your city, to see together.</dd></div>
-        <div class="row"><dt>Places and waitlist<i></i><b>confirm in 24 h</b></dt><dd>If someone drops out, her place goes to the first on the list.</dd></div>
-      </dl>
-      <h3 id="sicurezza">To feel safe</h3>
-      <dl>
-        <div class="row"><dt>Selfie check<i></i><b>by a person</b></dt><dd>Women only, real profiles only.</dd></div>
+        <div class="row"><dt>Selfie check<i></i><b>by a person</b></dt><dd>Women only, real profiles only. Without the badge, events don't show where and when.</dd></div>
         <div class="row"><dt>Block and report<i></i><b>always</b></dt><dd>Anyone you block disappears on both sides, chat included. Three reports and the account is suspended.</dd></div>
+        <div class="row"><dt>Small groups<i></i><b>limited places</b></dt><dd>Every event has a set number of places, in public spots, with an event chat to agree on the details.</dd></div>
         <div class="row"><dt>Your data<i></i><b>stays yours</b></dt><dd>Nobody sees your surname or date of birth. You can delete your account in one tap, with everything in it.</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- 7. Notify me: the sentence with a blank -->
-  <section id="contatti" class="ask">
-    <div class="ask__wrap">
-      <div data-in>
-        <form class="blank" id="ask" action="mailto:info@kumiapp.space" method="get">
-          I live in <label class="sr" for="ask-city">Your city</label><input id="ask-city" name="city" list="citta-elenco" placeholder="Bologna" autocomplete="address-level2">,<br>
-          at launch, <button type="submit">write to me</button>.
-        </form>
-        <datalist id="citta-elenco"></datalist>
-        <p class="ask__note">Your email opens with the message already written: press Send and we'll write to you on launch day. If it doesn't open, write to <a href="mailto:info@kumiapp.space?subject=Let%20me%20know%20when%20Kumi%20is%20out">info@kumiapp.space</a>.</p>
+  <!-- 8. Waitlist -->
+  <section id="lista" class="wait">
+    <div class="wait__wrap">
+      <div class="wait__text" data-in>
+        <h2>Join the waitlist.</h2>
+        <p>Kumi is coming soon to the App Store and Google Play. Leave us your email: on launch day we'll write to you, so you can download it straight away.</p>
       </div>
+      <form class="pass" id="wait-form" novalidate data-in>
+        <div class="pass__body">
+          <label for="w-email">Your email</label>
+          <input id="w-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" required>
+          <label for="w-city">Your city <span>(optional)</span></label>
+          <input id="w-city" name="city" list="citta-elenco" autocomplete="address-level2" placeholder="Napoli">
+          <datalist id="citta-elenco"></datalist>
+          <button class="btn" type="submit">Add me to the list</button>
+          <p class="pass__msg" id="w-msg" role="status"></p>
+          <p class="pass__fine">We only use your email to tell you about the launch. <a href="privacy.html">Privacy</a></p>
+        </div>
+        <div class="pass__stamp" aria-hidden="true"><span>On the list</span></div>
+      </form>
       <div class="cat-stage" data-assets="../assets/cat/" aria-hidden="true"><img class="cat" src="../assets/kumi_mascotte.webp" alt="" width="539" height="964" loading="lazy"></div>
     </div>
   </section>
@@ -238,7 +271,7 @@
   <div class="tile t-city"><p>43 cities, from Aosta to Syracuse.</p></div>
   <div class="tile t-mail"><a href="mailto:info@kumiapp.space">info@kumiapp.space</a></div>
   <div class="tile t-word" aria-hidden="true"><span>Kumi</span></div>
-  <a class="tile t-go" href="#contatti"><strong>Notify me at launch</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
+  <a class="tile t-go" href="#lista"><strong>Join the waitlist</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
 </footer>
 
 <script>
@@ -249,8 +282,8 @@
     });
   });
 </script>
-<script src="../citta.js?v=1" defer></script>
-<script src="../site.js?v=1" defer></script>
+<script src="../citta.js?v=2" defer></script>
+<script src="../site.js?v=2" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>
