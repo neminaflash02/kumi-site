@@ -1,7 +1,8 @@
 /* Kumi — comportamenti della home (italiano e inglese).
    1. «La tua città»: scegli una delle 43 città e la cartolina mostra un luogo
       vero di lì (citta.js), con un esempio di invito.
-   2. Lista d'attesa: email e città finiscono su Supabase (slice BL); se non
+   2. Lista d'attesa: email, città e provenienza finiscono su Supabase
+      (slice BL e BP); se non
       va, si offre l'email già scritta.
    3. Il biglietto in apertura si rimpicciolisce un poco mentre si scorre,
       e «Entra in lista d'attesa» strappa il tagliando, che cade.
@@ -128,8 +129,19 @@
   }
 
   /* ——— 2. Lista d'attesa ——— */
+  // Le pagine senza «La tua città» (la /ig) suggeriscono comunque le 43 città.
+  var elenco = document.getElementById('citta-elenco');
+  if (!select && elenco) CITTA.forEach(function (c) {
+    var o = document.createElement('option'); o.value = c.c; elenco.appendChild(o);
+  });
   var SB_URL = 'https://gqwgikwqajhbbgfnnray.supabase.co';
   var SB_KEY = 'sb_publishable_g7c9PSF_FIIAhaMMud69aQ_erQvR6Xo';  // pubblica: la tabella accetta solo nuove righe
+  // Da dove arriva (slice BP): ?da=reddit nel link vince, poi la pagina
+  // (la /ig dice «instagram»), altrimenti «sito».
+  var DA = (function () {
+    var m = /[?&]da=([a-z0-9_-]{1,30})(?:&|$)/i.exec(location.search);
+    return m ? m[1].toLowerCase() : (document.body.getAttribute('data-source') || 'sito');
+  })();
   var form = document.getElementById('wait-form');
   var wEmail = document.getElementById('w-email');
   var wMsg = document.getElementById('w-msg');
@@ -156,7 +168,7 @@
     fetch(SB_URL + '/rest/v1/site_waitlist', {
       method: 'POST',
       headers: { apikey: SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify({ email: email, city: citta || null, lang: EN ? 'en' : 'it' })
+      body: JSON.stringify({ email: email, city: citta || null, lang: EN ? 'en' : 'it', source: DA })
     }).then(function (r) {
       if (r.ok || r.status === 409) {
         form.classList.add('done');

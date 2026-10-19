@@ -1,0 +1,71 @@
+/* Kumi — la pagina per chi arriva da Instagram (kumiapp.space/ig).
+   Pensata per il telefono, dentro il browser di Instagram: si legge in
+   verticale, la lista d'attesa arriva subito dopo il biglietto.
+   Usa i colori, i bottoni e il tagliando di home.css. */
+
+.ig { background: var(--night); }
+
+/* ——— Apertura: la foto del lungomare e il biglietto che ci si appoggia ——— */
+.ig-top { position: relative; padding: 84px var(--margin) 0; }
+.ig-top__photo {
+  position: absolute; inset: 0 0 auto; height: min(62svh, 520px); width: 100%;
+  object-fit: cover; object-position: 30% 55%; filter: brightness(.62);
+}
+.ig-ticket {
+  position: relative; z-index: 1; width: min(560px, 100%); margin: 18svh auto 0;
+  background: var(--paper); padding: clamp(26px, 6vw, 40px);
+  -webkit-mask: radial-gradient(circle 14px at 0 74%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 74%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+          mask: radial-gradient(circle 14px at 0 74%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 74%, #0000 98%, #000) right / 51% 100% no-repeat; /* taste-skill-ignore: forma ritagliata */
+}
+.ig-ticket h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); color: var(--bordeaux); }
+.ig-ticket__lead { margin: 18px 0 0; font-size: var(--t-lead); line-height: 1.45; }
+.ig-facts { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ig-facts li { padding: 7px 13px; border-radius: 999px; background: var(--gold-pale); font-weight: 700; font-size: var(--t-small); }
+/* la riga tratteggiata dove si strapperebbe il biglietto */
+.ig-ticket__cut { margin: 28px -40px 0; border-top: 3px dashed var(--gold-accent); }
+.ig-ticket__foot { margin-top: 22px; display: grid; gap: 10px; }
+.ig-ticket__foot .btn { width: 100%; }
+.ig-ticket__foot small { text-align: center; color: var(--soft); }
+
+/* ——— La lista d'attesa: il tagliando di home.css, su fondo nero ——— */
+.ig-wait { padding: 28px var(--margin) 0; }
+.ig-wait .pass { width: min(560px, 100%); margin: 0 auto; }
+.ig-wait__title { margin: 0 0 4px; font: 700 var(--t-heading)/1.05 var(--serif); color: var(--bordeaux); }
+
+/* ——— Sezioni su carta ——— */
+.ig-sec { width: min(560px, calc(100% - 2 * var(--margin))); margin: 28px auto 0; background: var(--paper); border-radius: 22px; padding: clamp(28px, 7vw, 44px) clamp(22px, 6vw, 40px); }
+.ig-sec h2 { font-size: var(--t-heading); color: var(--bordeaux); }
+.ig-sec > p { margin: 14px 0 0; font-size: var(--t-lead); line-height: 1.45; }
+
+.ig-steps { list-style: none; counter-reset: passo; margin: 24px 0 0; padding: 0; display: grid; gap: 18px; }
+.ig-steps li { counter-increment: passo; display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+.ig-steps li::before {
+  content: counter(passo); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bordeaux); color: var(--paper); font: 700 1.125rem/1 var(--sans);
+}
+.ig-steps strong { display: block; font-size: 1.125rem; }
+.ig-steps span { color: var(--soft); }
+
+.ig-shots { margin: 28px calc(-1 * clamp(22px, 6vw, 40px)) 0; padding: 0 clamp(22px, 6vw, 40px) 6px; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.ig-shots::-webkit-scrollbar { display: none; }
+.ig-shots img { flex: 0 0 auto; width: min(46vw, 210px); height: auto; scroll-snap-align: start; border-radius: 18px; }
+
+/* la sicurezza riusa il foglio a smerlo di home.css (.menu__sheet) */
+.ig .menu { padding: 28px var(--margin) 0; }
+.ig .menu h2 { margin-bottom: 28px; }
+
+.ig-who { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+.ig-who li { padding: 16px 18px; border-radius: 16px; background: var(--gold-pale); }
+.ig-who strong { display: block; }
+.ig-who span { color: var(--soft); font-size: var(--t-small); }
+.ig-who [lang="en"] { font-style: italic; }
+
+/* ——— Chiusura ——— */
+.ig-end { width: min(560px, calc(100% - 2 * var(--margin))); margin: 28px auto 0; text-align: center; color: var(--paper); padding: 40px 0 0; }
+.ig-end .cat-stage { width: 130px; margin: 0 auto 18px; }
+.ig-end h2 { font-size: var(--t-heading); color: var(--gold); }
+.ig-end p { margin: 14px auto 24px; max-width: 32ch; color: #e9e4c8; }
+.ig-end .btn { width: 100%; }
+.ig-foot { padding: 48px var(--margin) 36px; text-align: center; color: #bdb69a; font-size: var(--t-small); }
+.ig-foot nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-bottom: 12px; }
+.ig-foot a { color: #e9e4c8; }
