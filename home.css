@@ -474,9 +474,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; line-height
 .t-mail { grid-column: span 3; background: var(--paper); justify-content: flex-end; }
 .t-mail a { font: 700 var(--t-lead)/1.2 var(--sans); color: var(--bordeaux); }  /* va a capo dopo la @ (<wbr>), non a metà parola */
 .t-mail { gap: 10px; }
-.t-mail .t-ig { margin-bottom: auto; font: 700 var(--t-body)/1.3 var(--sans); color: var(--ink); text-decoration: none; }
+.t-mail .t-ig { margin-bottom: 0; font: 700 var(--t-body)/1.3 var(--sans); color: var(--ink); text-decoration: none; }
 .t-mail .t-ig span { display: block; color: var(--bordeaux); font-size: var(--t-lead); }
 .t-mail .t-ig:hover span { text-decoration: underline; text-underline-offset: 4px; }
+.t-mail .t-ig + a:not(.t-ig) { margin-top: auto; padding-top: 14px; }  /* l'email resta in fondo */
 .t-word { grid-column: span 8; min-height: 320px; background: var(--night); color: var(--paper); display: grid; place-items: center; }
 .t-word span { font: italic 700 clamp(5rem, 14vw, 12rem)/1 var(--serif); letter-spacing: -.03em; }
 .t-go { grid-column: span 4; min-height: 320px; background: var(--bordeaux); color: var(--paper); transition: background-color .2s ease; }
