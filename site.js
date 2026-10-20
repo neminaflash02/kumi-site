@@ -86,13 +86,11 @@
 
   if (select && CITTA.length) {
     var principali = ['Napoli', 'Milano', 'Roma'];
-    var lista = document.getElementById('citta-elenco');
     CITTA.forEach(function (c) {
       if (principali.indexOf(c.c) < 0) {
         var o = document.createElement('option');
         o.value = c.c; o.textContent = c.c; select.appendChild(o);
       }
-      if (lista) { var d = document.createElement('option'); d.value = c.c; lista.appendChild(d); }
     });
     tabs.forEach(function (b) {
       b.addEventListener('click', function () { mostra(b.getAttribute('data-city')); salva('kumi-citta', corrente); });
@@ -129,11 +127,16 @@
   }
 
   /* ——— 2. Lista d'attesa ——— */
-  // Le pagine senza «La tua città» (la /ig) suggeriscono comunque le 43 città.
-  var elenco = document.getElementById('citta-elenco');
-  if (!select && elenco) CITTA.forEach(function (c) {
-    var o = document.createElement('option'); o.value = c.c; elenco.appendChild(o);
-  });
+  // Per ora solo Italia: la città si sceglie tra le 43 di Kumi (o «un'altra città italiana»).
+  var ALTRA = 'Altra città italiana';
+  if (wCity && wCity.tagName === 'SELECT') {
+    CITTA.forEach(function (c) {
+      var o = document.createElement('option'); o.value = c.c; o.textContent = c.c; wCity.appendChild(o);
+    });
+    var altra = document.createElement('option');
+    altra.value = ALTRA; altra.textContent = EN ? 'Another Italian city' : 'Un\'altra città italiana';
+    wCity.appendChild(altra);
+  }
   var SB_URL = 'https://gqwgikwqajhbbgfnnray.supabase.co';
   var SB_KEY = 'sb_publishable_g7c9PSF_FIIAhaMMud69aQ_erQvR6Xo';  // pubblica: la tabella accetta solo nuove righe
   // Da dove arriva (slice BP): ?da=reddit nel link vince, poi la pagina
@@ -145,7 +148,7 @@
   var form = document.getElementById('wait-form');
   var wEmail = document.getElementById('w-email');
   var wMsg = document.getElementById('w-msg');
-  if (wCity) wCity.addEventListener('input', function () { wCity.dataset.touched = '1'; });
+  if (wCity) wCity.addEventListener('change', function () { wCity.dataset.touched = '1'; wCity.removeAttribute('aria-invalid'); });
   function mailto(citta) {
     var oggetto = EN ? 'Let me know when Kumi is out' : 'Avvisami quando esce Kumi';
     var testo = (EN ? 'Hi! Please write to me when Kumi is out.' : 'Ciao! Scrivetemi quando esce Kumi.') + (citta ? (EN ? ' I live in ' : ' Sono di ') + citta + '.' : '');
@@ -162,6 +165,12 @@
       return;
     }
     wEmail.removeAttribute('aria-invalid');
+    if (wCity && !citta) {
+      wCity.setAttribute('aria-invalid', 'true');
+      wMsg.textContent = EN ? 'Choose your city: for now Kumi is only in Italy.' : 'Scegli la tua città: per ora Kumi è solo in Italia.';
+      wCity.focus();
+      return;
+    }
     var tasto = form.querySelector('button');
     tasto.disabled = true;
     wMsg.textContent = EN ? 'Saving…' : 'Un attimo…';

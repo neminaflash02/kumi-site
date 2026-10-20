@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="../../assets/napoli-tramonto.webp">
-  <link rel="stylesheet" href="../../home.css?v=11">
+  <link rel="stylesheet" href="../../home.css?v=12">
   <link rel="stylesheet" href="../../ig.css?v=1">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -71,11 +71,11 @@
       <div class="pass__body">
         <h2 class="ig-wait__title">Be one of the first.</h2>
         <p>We'll email you the day Kumi comes out, so you can download it straight away.</p>
+        <p class="pass__solo">For now Kumi is only in Italy: if you live or study here, you're in.</p>
         <label for="w-email">Your email</label>
         <input id="w-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" required>
-        <label for="w-city">Your city <span>(optional)</span></label>
-        <input id="w-city" name="city" list="citta-elenco" autocomplete="address-level2" placeholder="Rome">
-        <datalist id="citta-elenco"></datalist>
+        <label for="w-city">Your city in Italy</label>
+        <select id="w-city" name="city" required><option value="">Choose your city</option></select>
         <button class="btn" type="submit">Put me on the list</button>
         <p class="pass__msg" id="w-msg" role="status"></p>
         <p class="pass__fine">We only use your email to tell you when Kumi is out. <a href="../privacy.html">Privacy</a></p>
@@ -156,7 +156,7 @@
   });
 </script>
 <script src="../../citta.js?v=2" defer></script>
-<script src="../../site.js?v=11" defer></script>
+<script src="../../site.js?v=12" defer></script>
 <script src="../../cat.js" defer></script>
 </body>
 </html>

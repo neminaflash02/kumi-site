@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/napoli-tramonto.webp">
-  <link rel="stylesheet" href="home.css?v=11">
+  <link rel="stylesheet" href="home.css?v=12">
   <script>
     document.documentElement.classList.add('js');
     // Chi arriva con il telefono in un'altra lingua va alla versione inglese,
@@ -293,11 +293,11 @@
       </div>
       <form class="pass" id="wait-form" novalidate data-in>
         <div class="pass__body">
+          <p class="pass__solo">Per ora Kumi è solo in Italia: se vivi o studi qui, sei dei nostri.</p>
           <label for="w-email">La tua email</label>
           <input id="w-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nome@esempio.it" required>
-          <label for="w-city">La tua città <span>(se vuoi)</span></label>
-          <input id="w-city" name="city" list="citta-elenco" autocomplete="address-level2" placeholder="Napoli">
-          <datalist id="citta-elenco"></datalist>
+          <label for="w-city">La tua città in Italia</label>
+          <select id="w-city" name="city" required><option value="">Scegli la tua città</option></select>
           <button class="btn" type="submit">Mettimi in lista</button>
           <p class="pass__msg" id="w-msg" role="status"></p>
           <p class="pass__fine">Usiamo l'email solo per avvisarti dell'uscita. <a href="privacy.html">Privacy</a></p>
@@ -334,7 +334,7 @@
   });
 </script>
 <script src="citta.js?v=2" defer></script>
-<script src="site.js?v=11" defer></script>
+<script src="site.js?v=12" defer></script>
 <script src="cat.js" defer></script>
 </body>
 </html>
