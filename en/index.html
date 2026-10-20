@@ -73,9 +73,9 @@
             </div>
           </div>
           <div class="ticket__stub">
-            <div class="ticket__seats">Soon<small>on iPhone and Android</small></div>
-            <p>Tear off the stub and join the list: we'll write to you the day it's out.</p>
-            <a class="btn" href="#lista" id="strappa">Join the waitlist</a>
+            <div class="ticket__seats" data-lancio-html="Now<small>on the App Store</small>">Soon<small>on iPhone and Android</small></div>
+            <p data-lancio="Download it for free and find your first friends in town.">Tear off the stub and join the list: we'll write to you the day it's out.</p>
+            <a class="btn" href="#lista" id="strappa" data-lancio-app="Download on the App Store">Join the waitlist</a>
           </div>
         </article>
       </div>
@@ -144,7 +144,7 @@
           <p id="city-line">An invitation in Napoli could look like this: Saturday at 5pm. Kumi is in 43 Italian cities, each with its own museums and events.</p>
         </div>
         <div class="city__actions">
-          <a class="btn" href="#lista">Join the waitlist</a>
+          <a class="btn" href="#lista" data-lancio-app="Download on the App Store">Join the waitlist</a>
           <button type="button" class="btn alt" id="city-next">Another city</button>
         </div>
       </div>
@@ -276,8 +276,8 @@
   <section id="lista" class="wait">
     <div class="wait__wrap">
       <div class="wait__text" data-in>
-        <h2>Join the waitlist.</h2>
-        <p>Kumi is coming soon to the App Store and Google Play. Leave us your email: on launch day we'll write to you, so you can download it straight away.</p>
+        <h2 data-lancio="On Android? We'll let you know.">Join the waitlist.</h2>
+        <p data-lancio="Kumi is already on the App Store. On Android, leave us your email: we'll write to you the day it's out.">Kumi is coming soon to the App Store and Google Play. Leave us your email: on launch day we'll write to you, so you can download it straight away.</p>
       </div>
       <form class="pass" id="wait-form" novalidate data-in>
         <div class="pass__body">
@@ -310,7 +310,7 @@
   <div class="tile t-city"><p>43 cities, from Aosta to Syracuse.</p></div>
   <div class="tile t-mail"><a class="t-ig" href="https://www.instagram.com/get.kumi/" rel="me">Instagram<span>@get.kumi</span></a><a class="t-ig" href="https://www.tiktok.com/@get.kumi" rel="me">TikTok<span>@get.kumi</span></a><a href="mailto:info@kumiapp.space">info@<wbr>kumiapp.space</a></div>
   <div class="tile t-word" aria-hidden="true"><span>Kumi</span></div>
-  <a class="tile t-go" href="#lista"><strong>Join the waitlist</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
+  <a class="tile t-go" href="#lista" data-lancio-app=""><strong data-lancio="Get Kumi">Join the waitlist</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
 </footer>
 
 <script>
@@ -322,7 +322,7 @@
   });
 </script>
 <script src="../citta.js?v=2" defer></script>
-<script src="../site.js?v=12" defer></script>
+<script src="../site.js?v=13" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>

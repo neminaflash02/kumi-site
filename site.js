@@ -16,6 +16,10 @@
   var ROOT = EN ? '../' : '';
   var CITTA = window.KUMI_CITTA || [];
   var calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Il giorno del lancio: l'ID numerico di Kumi su App Store (lo scrive
+  // tools/lancio_sito.py). Da vuoto il sito parla di lista d'attesa; con l'ID
+  // i testi segnati con data-lancio cambiano e i pulsanti portano allo store.
+  var APP_STORE_ID = '';
 
   function trova(nome) {
     for (var i = 0; i < CITTA.length; i++) if (CITTA[i].c === nome) return CITTA[i];
@@ -126,6 +130,21 @@
     mostra(trova(ricordata) ? ricordata : 'Napoli', true);
   }
 
+  /* ——— 0. Lancio: da lista d'attesa a «Scarica su App Store» ——— */
+  if (APP_STORE_ID) {
+    var STORE = 'https://apps.apple.com/it/app/id' + APP_STORE_ID;
+    document.querySelectorAll('[data-lancio]').forEach(function (el) {
+      el.textContent = el.getAttribute('data-lancio');
+    });
+    document.querySelectorAll('[data-lancio-html]').forEach(function (el) {
+      el.innerHTML = el.getAttribute('data-lancio-html');
+    });
+    document.querySelectorAll('[data-lancio-app]').forEach(function (a) {
+      a.href = STORE;
+      if (a.getAttribute('data-lancio-app')) a.textContent = a.getAttribute('data-lancio-app');
+    });
+  }
+
   /* ——— 2. Lista d'attesa ——— */
   // Per ora solo Italia: la città si sceglie tra le 43 di Kumi (o «un'altra città italiana»).
   var ALTRA = 'Altra città italiana';
@@ -200,7 +219,7 @@
 
   /* il tagliando del biglietto si strappa e porta alla lista */
   var strappa = document.getElementById('strappa');
-  if (strappa && !calmo) strappa.addEventListener('click', function (e) {
+  if (strappa && !calmo && !APP_STORE_ID) strappa.addEventListener('click', function (e) {
     var stub = strappa.closest('.ticket__stub');
     var dove = document.getElementById('lista');
     if (!stub || !dove) return;

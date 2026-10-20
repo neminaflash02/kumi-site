@@ -85,9 +85,9 @@
             </div>
           </div>
           <div class="ticket__stub">
-            <div class="ticket__seats">Presto<small>su App Store e Google Play</small></div>
-            <p>Strappa il tagliando ed entra in lista: ti scriviamo il giorno in cui esce.</p>
-            <a class="btn" href="#lista" id="strappa">Entra in lista d'attesa</a>
+            <div class="ticket__seats" data-lancio-html="Ora<small>su App Store</small>">Presto<small>su App Store e Google Play</small></div>
+            <p data-lancio="Scaricala gratis e trova le tue prime amiche in città.">Strappa il tagliando ed entra in lista: ti scriviamo il giorno in cui esce.</p>
+            <a class="btn" href="#lista" id="strappa" data-lancio-app="Scarica su App Store">Entra in lista d'attesa</a>
           </div>
         </article>
       </div>
@@ -156,7 +156,7 @@
           <p id="city-line">Così potrebbe essere un invito a Napoli: sabato alle 17:00. Kumi c'è in 43 città, ognuna con i suoi musei e i suoi eventi.</p>
         </div>
         <div class="city__actions">
-          <a class="btn" href="#lista">Entra in lista d'attesa</a>
+          <a class="btn" href="#lista" data-lancio-app="Scarica su App Store">Entra in lista d'attesa</a>
           <button type="button" class="btn alt" id="city-next">Un'altra città</button>
         </div>
       </div>
@@ -288,8 +288,8 @@
   <section id="lista" class="wait">
     <div class="wait__wrap">
       <div class="wait__text" data-in>
-        <h2>Entra in lista d'attesa.</h2>
-        <p>Kumi arriva presto su App Store e Google Play. Lasciaci la tua email: il giorno in cui esce ti scriviamo, così la scarichi subito.</p>
+        <h2 data-lancio="Su Android? Ti avvisiamo.">Entra in lista d'attesa.</h2>
+        <p data-lancio="Kumi è già su App Store. Per Android lasciaci l'email: ti scriviamo il giorno in cui esce.">Kumi arriva presto su App Store e Google Play. Lasciaci la tua email: il giorno in cui esce ti scriviamo, così la scarichi subito.</p>
       </div>
       <form class="pass" id="wait-form" novalidate data-in>
         <div class="pass__body">
@@ -322,7 +322,7 @@
   <div class="tile t-city"><p>43 città, da Aosta a Siracusa.</p></div>
   <div class="tile t-mail"><a class="t-ig" href="https://www.instagram.com/get.kumi/" rel="me">Instagram<span>@get.kumi</span></a><a class="t-ig" href="https://www.tiktok.com/@get.kumi" rel="me">TikTok<span>@get.kumi</span></a><a href="mailto:info@kumiapp.space">info@<wbr>kumiapp.space</a></div>
   <div class="tile t-word" aria-hidden="true"><span>Kumi</span></div>
-  <a class="tile t-go" href="#lista"><strong>Entra in lista d'attesa</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
+  <a class="tile t-go" href="#lista" data-lancio-app=""><strong data-lancio="Scarica Kumi">Entra in lista d'attesa</strong><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 36L36 12M16 12h20v20"/></svg></a>
 </footer>
 
 <script>
@@ -334,7 +334,7 @@
   });
 </script>
 <script src="citta.js?v=2" defer></script>
-<script src="site.js?v=12" defer></script>
+<script src="site.js?v=13" defer></script>
 <script src="cat.js" defer></script>
 </body>
 </html>

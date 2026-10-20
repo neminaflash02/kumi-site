@@ -70,8 +70,8 @@
       </ul>
       <div class="ig-ticket__cut" aria-hidden="true"></div>
       <div class="ig-ticket__foot">
-        <a class="btn" href="#lista">Entra in lista d'attesa</a>
-        <small>Presto su iPhone · Android arriverà dopo</small>
+        <a class="btn" href="#lista" data-lancio-app="Scarica su App Store">Entra in lista d'attesa</a>
+        <small data-lancio="Ora su iPhone · Android arriverà dopo">Presto su iPhone · Android arriverà dopo</small>
       </div>
     </article>
   </section>
@@ -80,8 +80,8 @@
   <section id="lista" class="ig-wait">
     <form class="pass" id="wait-form" novalidate>
       <div class="pass__body">
-        <h2 class="ig-wait__title">Sii tra le prime.</h2>
-        <p>Il giorno in cui Kumi esce ti scriviamo, così la scarichi subito.</p>
+        <h2 class="ig-wait__title" data-lancio="Su Android? Ti avvisiamo.">Sii tra le prime.</h2>
+        <p data-lancio="Kumi è già su App Store. Per Android lasciaci l'email: ti scriviamo il giorno in cui esce.">Il giorno in cui Kumi esce ti scriviamo, così la scarichi subito.</p>
         <p class="pass__solo">Per ora Kumi è solo in Italia: se vivi o studi qui, sei dei nostri.</p>
         <label for="w-email">La tua email</label>
         <input id="w-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nome@esempio.it" required>
@@ -142,8 +142,8 @@
   <section class="ig-end">
     <div class="cat-stage" data-assets="../assets/cat/" aria-hidden="true"><img class="cat" src="../assets/kumi_mascotte.webp" alt="" width="539" height="964" loading="lazy"></div>
     <h2>Ci vediamo dentro.</h2>
-    <p>Kumi è gratis. Esce presto su iPhone: lasciaci l'email e sarai tra le prime a saperlo.</p>
-    <a class="btn" href="#lista">Entra in lista d'attesa</a>
+    <p data-lancio="Kumi è gratis, ed è già su App Store.">Kumi è gratis. Esce presto su iPhone: lasciaci l'email e sarai tra le prime a saperlo.</p>
+    <a class="btn" href="#lista" data-lancio-app="Scarica su App Store">Entra in lista d'attesa</a>
   </section>
 </main>
 
@@ -168,7 +168,7 @@
   });
 </script>
 <script src="../citta.js?v=2" defer></script>
-<script src="../site.js?v=12" defer></script>
+<script src="../site.js?v=13" defer></script>
 <script src="../cat.js" defer></script>
 </body>
 </html>
